@@ -26,11 +26,11 @@
     }
     [data-theme="light"] {
         --bg: #f5f4f0; --bg2: #eae8e3; --bg3: #fff; --bg3h: #f9f8f5;
-        --t1: #1a1a1a; --t2: #666; --t3: #999;
-        --bdr: #ddd; --bdr2: #ccc;
-        --card-shadow: 0 4px 24px rgba(0,0,0,0.08);
-        --overlay: rgba(245,244,240,0.7);
-        --input-bg: #fff;
+        --t1: #1a1a1a; --t2: #555; --t3: #999;
+        --bdr: #d0cec8; --bdr2: #b8b5ae;
+        --card-shadow: 0 4px 24px rgba(0,0,0,0.1);
+        --overlay: rgba(245,244,240,0.85);
+        --input-bg: #f7f6f3;
         --sun-display: block; --moon-display: none;
     }
 
@@ -242,12 +242,12 @@
     .ci-ico { width: 36px; height: 36px; border-radius: 8px; background: var(--bg3); border: 1px solid var(--bdr); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1rem; }
     .ci a { color: var(--t2); text-decoration: none; }
 
-    .form-card { background: var(--bg3); border: 1px solid var(--bdr); border-radius: 12px; padding: 2.5rem; box-shadow: var(--card-shadow); transition: background 0.4s; }
+    .form-card { background: var(--bg3); border: 2px solid var(--bdr); border-radius: 12px; padding: 2.5rem; box-shadow: var(--card-shadow); transition: background 0.4s, border-color 0.4s; }
     .fr { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
     .fg { margin-bottom: 1rem; }
     .fg label { display: block; font-size: 0.72rem; letter-spacing: 1px; text-transform: uppercase; color: var(--t2); margin-bottom: 0.4rem; font-weight: 500; }
     .fg input, .fg select, .fg textarea {
-        width: 100%; padding: 0.8rem 1rem; background: var(--input-bg); border: 1px solid var(--bdr);
+        width: 100%; padding: 0.8rem 1rem; background: var(--input-bg); border: 2px solid var(--bdr);
         border-radius: 8px; color: var(--t1); font-family: 'Inter', sans-serif;
         font-size: 0.9rem; outline: none; transition: border-color 0.3s, box-shadow 0.3s, background 0.4s, color 0.4s;
         -webkit-appearance: none; appearance: none;
