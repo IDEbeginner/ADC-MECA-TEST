@@ -474,7 +474,7 @@
                         <div class="fg"><label>Modèle</label><input type="text" name="modele" placeholder="Ex: Clio"></div>
                     </div>
                     <div class="fr">
-                        <div class="fg"><label>Année</label><input type="text" name="annee" placeholder="Ex: 2019"></div>
+                        <div class="fg"><label>Plaque d'immatriculation</label><input type="text" name="plaque" placeholder="Ex: AB-123-CD"></div>
                         <div class="fg"><label>Prestation</label>
                             <select name="prestation">
                                 <option value="">— Sélectionner —</option>
@@ -623,7 +623,7 @@ document.getElementById('devisForm').addEventListener('submit', function(e) {
         'Client : ' + d.prenom + ' ' + d.nom + '\n' +
         'Email : ' + d.email + '\n' +
         'Tél : ' + d.tel + '\n\n' +
-        'Véhicule : ' + d.marque + ' ' + d.modele + ' (' + d.annee + ')\n' +
+        'Véhicule : ' + d.marque + ' ' + d.modele + ' — Plaque : ' + d.plaque + '\n' +
         'Prestation : ' + d.prestation + '\n\n' +
         'Description :\n' + d.message
     );
