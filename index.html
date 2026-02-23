@@ -1,359 +1,324 @@
 <!DOCTYPE html>
 
-<html lang="fr" style="color-scheme: only dark;">
+<html lang="fr" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#0a0a0a">
-    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#0b0b0b">
     <title>ADC MECA — Garage Automobile à Biganos</title>
-    <meta name="description" content="ADC MECA — Arthur Del Campo. Garage automobile à Biganos (33380). Mécanique générale, diagnostic, entretien. Devis gratuit.">
+    <meta name="description" content="ADC MECA — Arthur Del Campo. Garage automobile à Biganos. Mécanique, diagnostic, entretien. Devis gratuit.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
 ```
-    :root {
-        --bg: #0a0a0a;
-        --bg2: #111111;
-        --bg3: #161616;
-        --bg3h: #1c1c1c;
-        --red: #e63946;
-        --red-d: #c1121f;
-        --red-g: rgba(230,57,70,0.15);
-        --t1: #f1f1f1;
-        --t2: #8a8a8a;
-        --t3: #555;
-        --bdr: #222;
-        --bdr2: #2a2a2a;
-        --green: #2ec471;
-        --ff: 'Bebas Neue', 'Impact', 'Arial Black', sans-serif;
-        --fb: 'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    /* ── THEME VARIABLES ── */
+    [data-theme="dark"] {
+        --bg: #0b0b0b; --bg2: #131313; --bg3: #1a1a1a; --bg3h: #222;
+        --t1: #f0f0f0; --t2: #999; --t3: #555;
+        --bdr: #1f1f1f; --bdr2: #2c2c2c;
+        --card-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        --overlay: rgba(11,11,11,0.7);
+        --input-bg: #111;
+        --sun-display: none; --moon-display: block;
+    }
+    [data-theme="light"] {
+        --bg: #f5f4f0; --bg2: #eae8e3; --bg3: #fff; --bg3h: #f9f8f5;
+        --t1: #1a1a1a; --t2: #666; --t3: #999;
+        --bdr: #ddd; --bdr2: #ccc;
+        --card-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        --overlay: rgba(245,244,240,0.7);
+        --input-bg: #fff;
+        --sun-display: block; --moon-display: none;
     }
 
-    html {
-        scroll-behavior: smooth;
-        background-color: #0a0a0a !important;
-        color-scheme: dark !important;
-    }
+    --red: #e63946;
+
+    html { scroll-behavior: smooth; }
 
     body {
-        font-family: var(--fb);
-        background-color: #0a0a0a !important;
-        color: #f1f1f1 !important;
-        overflow-x: hidden;
-        line-height: 1.6;
-        -webkit-text-size-adjust: 100%;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        background: var(--bg); color: var(--t1);
+        overflow-x: hidden; line-height: 1.65;
+        transition: background 0.4s, color 0.4s;
     }
 
-    /* ═══ NAV ═══ */
-    nav {
+    .accent { color: #e63946; }
+
+    /* ── NAV ── */
+    header {
         position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-        padding: 1rem 2rem;
+        padding: 0.9rem 1.5rem;
         display: flex; justify-content: space-between; align-items: center;
-        background: rgba(10,10,10,0.9);
-        -webkit-backdrop-filter: blur(20px);
-        backdrop-filter: blur(20px);
+        background: var(--overlay);
+        -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
         border-bottom: 1px solid var(--bdr);
-        transition: padding 0.3s;
+        transition: background 0.4s;
     }
-    nav.scrolled { padding: 0.6rem 2rem; }
 
-    .logo { text-decoration: none; display: flex; align-items: center; }
-    .logo img { height: 50px; width: auto; transition: height 0.3s; }
-    nav.scrolled .logo img { height: 40px; }
+    .logo-link { display: flex; align-items: center; text-decoration: none; gap: 0.6rem; }
+    .logo-link img { height: 42px; width: auto; border-radius: 6px; }
+    .logo-text { font-family: 'Oswald', sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--t1); letter-spacing: 2px; transition: color 0.4s; }
 
-    .nav-links {
-        list-style: none; display: flex; gap: 2.2rem; align-items: center;
-    }
-    .nav-links a {
-        color: var(--t2); text-decoration: none; font-size: 0.82rem;
-        font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase;
-        transition: color 0.3s; position: relative;
-    }
-    .nav-links a::after {
-        content: ''; position: absolute; bottom: -4px; left: 0;
-        width: 0; height: 2px; background: var(--red); transition: width 0.3s;
-    }
-    .nav-links a:hover { color: var(--t1); }
-    .nav-links a:hover::after { width: 100%; }
+    .header-right { display: flex; align-items: center; gap: 1rem; }
 
-    .nav-cta {
-        background: var(--red) !important; color: #fff !important;
-        padding: 0.55rem 1.3rem !important; border-radius: 4px;
-        font-weight: 600 !important; transition: background 0.3s !important;
+    /* Theme toggle */
+    .theme-toggle {
+        width: 40px; height: 40px; border-radius: 50%;
+        border: 1px solid var(--bdr2); background: var(--bg3);
+        cursor: pointer; display: flex; align-items: center; justify-content: center;
+        transition: all 0.3s; position: relative; flex-shrink: 0;
     }
-    .nav-cta:hover { background: var(--red-d) !important; }
-    .nav-cta::after { display: none !important; }
+    .theme-toggle:hover { border-color: #e63946; }
+    .theme-toggle .sun { display: var(--sun-display); }
+    .theme-toggle .moon { display: var(--moon-display); }
+    .theme-toggle svg { width: 18px; height: 18px; fill: var(--t1); transition: fill 0.4s; }
 
-    .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1001; }
-    .burger span { width: 28px; height: 2px; background: var(--t1); transition: 0.3s; }
+    /* Burger */
+    .burger {
+        display: none; width: 40px; height: 40px; border-radius: 8px;
+        border: 1px solid var(--bdr2); background: var(--bg3);
+        cursor: pointer; flex-direction: column; align-items: center;
+        justify-content: center; gap: 5px; flex-shrink: 0;
+        transition: border-color 0.3s;
+    }
+    .burger span {
+        display: block; width: 20px; height: 2px; background: var(--t1);
+        border-radius: 2px; transition: all 0.3s;
+    }
+    .burger.active { border-color: #e63946; }
     .burger.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
     .burger.active span:nth-child(2) { opacity: 0; }
     .burger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
 
-    /* ═══ HERO ═══ */
+    /* Desktop nav */
+    .desk-nav { display: flex; gap: 2rem; align-items: center; list-style: none; }
+    .desk-nav a {
+        color: var(--t2); text-decoration: none; font-size: 0.8rem;
+        font-weight: 500; letter-spacing: 1px; text-transform: uppercase;
+        transition: color 0.3s;
+    }
+    .desk-nav a:hover { color: #e63946; }
+    .desk-nav .cta-link {
+        background: #e63946; color: #fff !important; padding: 0.5rem 1.2rem;
+        border-radius: 6px; font-weight: 600;
+    }
+    .desk-nav .cta-link:hover { background: #c1121f; }
+
+    /* Mobile menu */
+    .mobile-menu {
+        position: fixed; top: 0; right: -100%; width: 80%; max-width: 320px;
+        height: 100vh; background: var(--bg2); z-index: 999;
+        display: flex; flex-direction: column; justify-content: center;
+        padding: 3rem 2.5rem; gap: 0; transition: right 0.4s ease;
+        border-left: 1px solid var(--bdr);
+    }
+    .mobile-menu.open { right: 0; }
+    .mobile-menu a {
+        display: block; color: var(--t1); text-decoration: none;
+        font-family: 'Oswald', sans-serif; font-size: 1.6rem;
+        letter-spacing: 2px; padding: 0.8rem 0; border-bottom: 1px solid var(--bdr);
+        transition: color 0.3s;
+    }
+    .mobile-menu a:hover { color: #e63946; }
+    .mobile-overlay {
+        display: none; position: fixed; inset: 0; z-index: 998;
+        background: rgba(0,0,0,0.5);
+    }
+    .mobile-overlay.show { display: block; }
+
+    /* ── HERO ── */
     .hero {
         min-height: 100vh; display: flex; align-items: center; justify-content: center;
-        position: relative; overflow: hidden; background-color: #0a0a0a !important;
+        position: relative; overflow: hidden; background: var(--bg);
+        transition: background 0.4s;
     }
     .hero-bg {
         position: absolute; inset: 0;
         background:
-            radial-gradient(ellipse at 20% 50%, var(--red-g) 0%, transparent 60%),
-            radial-gradient(ellipse at 80% 20%, rgba(230,57,70,0.05) 0%, transparent 50%),
-            linear-gradient(180deg, #0a0a0a 0%, #111 100%);
+            radial-gradient(ellipse at 30% 50%, rgba(230,57,70,0.08) 0%, transparent 60%),
+            radial-gradient(ellipse at 70% 30%, rgba(230,57,70,0.04) 0%, transparent 50%);
     }
-    .hero-grid {
-        position: absolute; inset: 0;
-        background-image:
-            linear-gradient(rgba(34,34,34,0.4) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(34,34,34,0.4) 1px, transparent 1px);
-        background-size: 60px 60px;
-        opacity: 0.3;
-        -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-        mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-    }
-    .hero-content {
-        text-align: center; z-index: 2; padding: 2rem;
-        animation: fadeUp 1s ease-out;
-    }
-    .hero-badge {
-        display: inline-block; padding: 0.4rem 1.2rem;
-        border: 1px solid var(--bdr2); border-radius: 50px;
-        font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase;
-        color: var(--t2); margin-bottom: 2rem;
-        animation: fadeUp 1s ease-out 0.2s both;
+    .hero-content { text-align: center; z-index: 2; padding: 2rem; }
+    .hero-tag {
+        display: inline-block; padding: 0.35rem 1rem; border: 1px solid var(--bdr2);
+        border-radius: 50px; font-size: 0.7rem; letter-spacing: 3px;
+        text-transform: uppercase; color: var(--t2); margin-bottom: 1.5rem;
+        animation: fadeUp 0.8s ease both 0.1s;
     }
     .hero-title {
-        font-family: var(--ff); font-size: clamp(4rem,12vw,10rem);
-        line-height: 0.95; letter-spacing: 6px; margin-bottom: 1.5rem;
-        color: #f1f1f1 !important;
-        animation: fadeUp 1s ease-out 0.3s both;
+        font-family: 'Oswald', sans-serif; font-size: clamp(3.5rem,11vw,9rem);
+        font-weight: 700; line-height: 0.95; letter-spacing: 4px;
+        margin-bottom: 1.5rem;
+        animation: fadeUp 0.8s ease both 0.2s;
     }
-    .red { color: var(--red) !important; }
     .hero-sub {
-        font-size: 1.1rem; color: var(--t2); max-width: 500px;
-        margin: 0 auto 3rem; font-weight: 300;
-        animation: fadeUp 1s ease-out 0.5s both;
+        font-size: 1.05rem; color: var(--t2); max-width: 460px;
+        margin: 0 auto 2.5rem; font-weight: 300;
+        animation: fadeUp 0.8s ease both 0.35s;
     }
-    .hero-btns {
-        display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
-        animation: fadeUp 1s ease-out 0.7s both;
-    }
+    .hero-btns { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; animation: fadeUp 0.8s ease both 0.5s; }
+
     .btn {
-        padding: 1rem 2.5rem; border: none; border-radius: 4px;
-        font-family: var(--fb); font-size: 0.85rem; font-weight: 600;
-        letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer;
-        transition: all 0.3s; text-decoration: none; display: inline-flex;
-        align-items: center; gap: 0.5rem;
+        padding: 0.9rem 2rem; border: none; border-radius: 6px;
+        font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 600;
+        letter-spacing: 1px; text-transform: uppercase; cursor: pointer;
+        transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;
     }
-    .btn-r { background: var(--red); color: #fff !important; }
-    .btn-r:hover { background: var(--red-d); transform: translateY(-2px); box-shadow: 0 10px 40px var(--red-g); }
+    .btn-r { background: #e63946; color: #fff; }
+    .btn-r:hover { background: #c1121f; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(230,57,70,0.25); }
     .btn-o { background: transparent; color: var(--t1); border: 1px solid var(--bdr2); }
-    .btn-o:hover { border-color: var(--t2); background: rgba(255,255,255,0.03); transform: translateY(-2px); }
+    .btn-o:hover { border-color: var(--t2); transform: translateY(-2px); }
 
-    .scroll-ind {
-        position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
-        display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-        color: var(--t3); font-size: 0.7rem; letter-spacing: 2px;
-        text-transform: uppercase; animation: pulse 2s infinite;
+    /* ── SECTIONS ── */
+    section { padding: 5rem 1.5rem; background: var(--bg); transition: background 0.4s; }
+    .sec-alt { background: var(--bg2); }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .s-label { font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; color: #e63946; margin-bottom: 0.8rem; display: block; }
+    .s-title { font-family: 'Oswald', sans-serif; font-size: clamp(2rem,4.5vw,3.2rem); letter-spacing: 2px; margin-bottom: 1rem; }
+    .s-desc { color: var(--t2); max-width: 520px; font-weight: 300; margin-bottom: 2.5rem; }
+    .s-head { text-align: center; margin-bottom: 3.5rem; }
+    .s-head .s-desc { margin: 0.8rem auto 0; }
+
+    /* ── PRESENTATION (about + photos intégrées) ── */
+    .pres-hero {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+        align-items: center; margin-bottom: 4rem;
     }
-    .scroll-ind .line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--t3), transparent); }
-
-    /* ═══ SECTIONS ═══ */
-    section { padding: 6rem 2rem; position: relative; background-color: #0a0a0a !important; }
-    .sec-dark { background-color: #111111 !important; border-top: 1px solid var(--bdr); border-bottom: 1px solid var(--bdr); }
-
-    .s-head { text-align: center; margin-bottom: 4rem; }
-    .s-label { font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase; color: var(--red); margin-bottom: 1rem; display: block; }
-    .s-title { font-family: var(--ff); font-size: clamp(2.5rem,5vw,4rem); letter-spacing: 3px; color: #f1f1f1 !important; }
-    .s-desc { color: var(--t2); max-width: 550px; margin: 1rem auto 0; font-weight: 300; }
-    .container { max-width: 1200px; margin: 0 auto; }
-
-    /* ═══ ABOUT ═══ */
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-    .about-img {
-        aspect-ratio: 4/3; border-radius: 8px; overflow: hidden;
-        border: 1px solid var(--bdr); background-color: #161616;
+    .pres-photo {
+        border-radius: 12px; overflow: hidden; border: 1px solid var(--bdr);
+        aspect-ratio: 3/4; background: var(--bg3);
     }
-    .about-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .about-text h3 { font-family: var(--ff); font-size: 2.5rem; letter-spacing: 2px; margin-bottom: 1.5rem; color: #f1f1f1 !important; }
-    .about-text p { color: var(--t2); margin-bottom: 1.5rem; font-weight: 300; line-height: 1.8; }
-    .stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 2.5rem; }
-    .stat {
-        text-align: center; padding: 1.5rem 1rem; background-color: #0a0a0a !important;
-        border-radius: 8px; border: 1px solid var(--bdr);
-    }
-    .stat-n { font-family: var(--ff); font-size: 2.5rem; color: var(--red); letter-spacing: 2px; }
-    .stat-l { font-size: 0.75rem; color: var(--t2); text-transform: uppercase; letter-spacing: 1px; margin-top: 0.3rem; }
+    .pres-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .pres-text p { color: var(--t2); line-height: 1.8; font-weight: 300; margin-bottom: 1rem; }
 
-    /* ═══ SERVICES ═══ */
-    .srv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 1.5rem; }
+    /* Photo strip */
+    .photo-strip {
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+    }
+    .photo-strip-item {
+        border-radius: 10px; overflow: hidden; border: 1px solid var(--bdr);
+        aspect-ratio: 4/3; background: var(--bg3); cursor: pointer;
+        transition: transform 0.4s, border-color 0.3s;
+    }
+    .photo-strip-item:hover { transform: scale(1.03); border-color: #e63946; }
+    .photo-strip-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* Stats */
+    .stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-top: 3rem; }
+    .stat-card {
+        text-align: center; padding: 1.5rem; background: var(--bg3);
+        border-radius: 10px; border: 1px solid var(--bdr);
+        box-shadow: var(--card-shadow); transition: background 0.4s, border-color 0.4s;
+    }
+    .stat-num { font-family: 'Oswald', sans-serif; font-size: 2rem; color: #e63946; }
+    .stat-lbl { font-size: 0.72rem; color: var(--t2); text-transform: uppercase; letter-spacing: 1px; margin-top: 0.2rem; }
+
+    /* ── SERVICES (in Présentation) ── */
+    .srv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 1.2rem; margin-top: 3rem; }
     .srv {
-        background-color: #161616 !important; border: 1px solid var(--bdr); border-radius: 8px;
-        padding: 2.5rem 2rem; transition: all 0.4s; position: relative; overflow: hidden;
+        background: var(--bg3); border: 1px solid var(--bdr); border-radius: 10px;
+        padding: 2rem 1.5rem; transition: all 0.3s; position: relative; overflow: hidden;
+        box-shadow: var(--card-shadow);
     }
-    .srv::before {
+    .srv::after {
         content: ''; position: absolute; top: 0; left: 0; right: 0;
-        height: 3px; background: var(--red); transform: scaleX(0); transition: transform 0.4s;
+        height: 3px; background: #e63946; transform: scaleX(0); transition: transform 0.3s;
+        transform-origin: left;
     }
-    .srv:hover { background-color: #1c1c1c !important; transform: translateY(-4px); border-color: var(--bdr2); }
-    .srv:hover::before { transform: scaleX(1); }
-    .srv-ico {
-        width: 50px; height: 50px; background: var(--red-g); border-radius: 12px;
-        display: flex; align-items: center; justify-content: center;
-        margin-bottom: 1.5rem; font-size: 1.5rem;
-    }
-    .srv h3 { font-family: var(--ff); font-size: 1.5rem; letter-spacing: 2px; margin-bottom: 0.8rem; color: #f1f1f1 !important; }
-    .srv p { color: var(--t2); font-size: 0.9rem; font-weight: 300; line-height: 1.7; }
+    .srv:hover { transform: translateY(-3px); border-color: var(--bdr2); }
+    .srv:hover::after { transform: scaleX(1); }
+    .srv-ico { font-size: 1.8rem; margin-bottom: 1rem; }
+    .srv h3 { font-family: 'Oswald', sans-serif; font-size: 1.2rem; letter-spacing: 1.5px; margin-bottom: 0.5rem; }
+    .srv p { color: var(--t2); font-size: 0.85rem; font-weight: 300; line-height: 1.7; }
 
-    /* ═══ GALLERY ═══ */
-    .gal-grid {
-        display: grid; grid-template-columns: repeat(3,1fr);
-        grid-template-rows: repeat(2, 250px); gap: 1rem;
-    }
-    .gal-item {
-        background-color: #161616 !important; border-radius: 8px; overflow: hidden;
-        border: 1px solid var(--bdr); position: relative; cursor: pointer;
-        transition: all 0.4s;
-    }
-    .gal-item:hover { transform: scale(1.02); border-color: var(--red); }
-    .gal-item:first-child { grid-row: span 2; }
-    .gal-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    /* ── DEVIS ── */
+    .devis-layout { display: grid; grid-template-columns: 1fr 1.3fr; gap: 3rem; align-items: start; }
+    .devis-side h3 { font-family: 'Oswald', sans-serif; font-size: 2rem; letter-spacing: 1.5px; margin-bottom: 1rem; }
+    .devis-side p { color: var(--t2); font-weight: 300; line-height: 1.8; margin-bottom: 1.5rem; }
+    .ci { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; color: var(--t2); font-size: 0.9rem; }
+    .ci-ico { width: 36px; height: 36px; border-radius: 8px; background: var(--bg3); border: 1px solid var(--bdr); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1rem; }
+    .ci a { color: var(--t2); text-decoration: none; }
 
-    /* ═══ VIDEO ═══ */
-    .video-wrap { margin-top: 4rem; }
-    .video-box {
-        max-width: 900px; margin: 0 auto; aspect-ratio: 16/9;
-        background-color: #161616 !important; border-radius: 12px; border: 1px solid var(--bdr);
-        overflow: hidden; display: flex; align-items: center; justify-content: center;
-    }
-    .video-box .ph { text-align: center; color: var(--t3); }
-    .play-btn {
-        width: 80px; height: 80px; border-radius: 50%; background: var(--red);
-        display: flex; align-items: center; justify-content: center;
-        margin: 0 auto 1rem; cursor: pointer; transition: 0.3s; border: none;
-    }
-    .play-btn:hover { transform: scale(1.1); box-shadow: 0 0 40px var(--red-g); }
-    .play-btn svg { width: 30px; height: 30px; fill: #fff; margin-left: 4px; }
-
-    /* ═══ MAP ═══ */
-    .map-wrap { max-width: 1000px; margin: 0 auto; text-align: center; }
-    .map-bar { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-bottom: 2rem; }
-    .map-item {
-        display: flex; align-items: center; gap: 1rem;
-        background-color: #0a0a0a !important; border: 1px solid var(--bdr); border-radius: 8px;
-        padding: 1.2rem 1.5rem; text-align: left;
-    }
-    .map-ico { font-size: 1.5rem; flex-shrink: 0; }
-    .map-item strong { display: block; font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--red); margin-bottom: 0.2rem; }
-    .map-item span, .map-item a { font-size: 0.9rem; color: var(--t2); text-decoration: none; }
-    .map-frame { width: 100%; height: 450px; border-radius: 12px; overflow: hidden; border: 1px solid var(--bdr); }
-    .map-frame iframe { display: block; width: 100%; height: 100%; border: none; }
-
-    /* ═══ DEVIS ═══ */
-    .devis-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: start; }
-    .devis-info h3 { font-family: var(--ff); font-size: 2.5rem; letter-spacing: 2px; margin-bottom: 1.5rem; color: #f1f1f1 !important; }
-    .devis-info p { color: var(--t2); font-weight: 300; line-height: 1.8; margin-bottom: 2rem; }
-    .c-item { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; color: var(--t2); }
-    .c-ico {
-        width: 40px; height: 40px; background-color: #161616 !important; border: 1px solid var(--bdr);
-        border-radius: 8px; display: flex; align-items: center; justify-content: center;
-        flex-shrink: 0; font-size: 1.1rem;
-    }
-    .c-item a { color: var(--t2); text-decoration: none; }
-
-    .form-card { background-color: #161616 !important; border: 1px solid var(--bdr); border-radius: 12px; padding: 3rem; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .fg { margin-bottom: 1.2rem; }
-    .fg label {
-        display: block; font-size: 0.8rem; letter-spacing: 1px;
-        text-transform: uppercase; color: var(--t2); margin-bottom: 0.5rem; font-weight: 500;
-    }
+    .form-card { background: var(--bg3); border: 1px solid var(--bdr); border-radius: 12px; padding: 2.5rem; box-shadow: var(--card-shadow); transition: background 0.4s; }
+    .fr { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+    .fg { margin-bottom: 1rem; }
+    .fg label { display: block; font-size: 0.72rem; letter-spacing: 1px; text-transform: uppercase; color: var(--t2); margin-bottom: 0.4rem; font-weight: 500; }
     .fg input, .fg select, .fg textarea {
-        width: 100%; padding: 0.9rem 1.2rem;
-        background-color: #0a0a0a !important; border: 1px solid var(--bdr);
-        border-radius: 6px; color: #f1f1f1 !important; font-family: var(--fb);
-        font-size: 0.95rem; transition: border-color 0.3s, box-shadow 0.3s; outline: none;
+        width: 100%; padding: 0.8rem 1rem; background: var(--input-bg); border: 1px solid var(--bdr);
+        border-radius: 8px; color: var(--t1); font-family: 'Inter', sans-serif;
+        font-size: 0.9rem; outline: none; transition: border-color 0.3s, box-shadow 0.3s, background 0.4s, color 0.4s;
         -webkit-appearance: none; appearance: none;
     }
-    .fg input::placeholder, .fg textarea::placeholder { color: #555 !important; }
-    .fg input:focus, .fg select:focus, .fg textarea:focus {
-        border-color: var(--red); box-shadow: 0 0 0 3px var(--red-g);
-    }
-    .fg textarea { resize: vertical; min-height: 120px; }
-    .fg select {
-        cursor: pointer;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238a8a8a' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-        background-repeat: no-repeat; background-position: right 1rem center;
-    }
-    .fg select option { background: #0a0a0a; color: #f1f1f1; }
-    .btn-sub { width: 100%; padding: 1.1rem; margin-top: 0.5rem; }
+    .fg input::placeholder, .fg textarea::placeholder { color: var(--t3); }
+    .fg input:focus, .fg select:focus, .fg textarea:focus { border-color: #e63946; box-shadow: 0 0 0 3px rgba(230,57,70,0.12); }
+    .fg textarea { resize: vertical; min-height: 100px; }
+    .fg select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 12 12'%3E%3Cpath fill='%23999' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; }
+    .fg select option { background: var(--bg); color: var(--t1); }
+    .btn-sub { width: 100%; padding: 1rem; }
+    .form-ok { display: none; text-align: center; padding: 2.5rem; }
+    .form-ok.show { display: block; animation: fadeUp 0.5s; }
+    .form-ok .chk { width: 60px; height: 60px; border-radius: 50%; background: rgba(46,196,113,0.1); border: 2px solid #2ec471; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.8rem; color: #2ec471; }
+    .form-ok h3 { font-family: 'Oswald', sans-serif; font-size: 1.5rem; letter-spacing: 1.5px; margin-bottom: 0.4rem; }
+    .form-ok p { color: var(--t2); font-size: 0.9rem; }
 
-    .form-ok { display: none; text-align: center; padding: 3rem; }
-    .form-ok.show { display: block; animation: fadeUp 0.5s ease; }
-    .form-ok .chk {
-        width: 70px; height: 70px; border-radius: 50%;
-        background: rgba(46,196,113,0.1); border: 2px solid var(--green);
-        display: flex; align-items: center; justify-content: center;
-        margin: 0 auto 1.5rem; font-size: 2rem; color: var(--green);
-    }
-    .form-ok h3 { font-family: var(--ff); font-size: 1.8rem; letter-spacing: 2px; margin-bottom: 0.5rem; color: #f1f1f1 !important; }
-    .form-ok p { color: var(--t2); }
+    /* ── MAP ── */
+    .map-wrap { max-width: 900px; margin: 0 auto; }
+    .map-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-bottom: 1.5rem; }
+    .mc { display: flex; align-items: center; gap: 0.8rem; background: var(--bg3); border: 1px solid var(--bdr); border-radius: 10px; padding: 1rem 1.2rem; text-align: left; box-shadow: var(--card-shadow); transition: background 0.4s; }
+    .mc-ico { font-size: 1.3rem; flex-shrink: 0; }
+    .mc strong { display: block; font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase; color: #e63946; margin-bottom: 0.15rem; }
+    .mc span, .mc a { font-size: 0.85rem; color: var(--t2); text-decoration: none; }
+    .map-box { width: 100%; height: 400px; border-radius: 12px; overflow: hidden; border: 1px solid var(--bdr); }
+    .map-box iframe { display: block; width: 100%; height: 100%; border: none; }
+    .map-link { display: inline-flex; margin-top: 1.2rem; }
 
-    /* ═══ FOOTER ═══ */
-    footer { background-color: #111111 !important; border-top: 1px solid var(--bdr); padding: 4rem 2rem 2rem; }
-    .ft-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
-    .ft-brand .logo { margin-bottom: 1rem; }
-    .ft-brand p { color: var(--t2); font-size: 0.9rem; font-weight: 300; line-height: 1.7; }
-    .ft-links h4 { font-family: var(--ff); font-size: 1.2rem; letter-spacing: 2px; margin-bottom: 1.2rem; color: #f1f1f1 !important; }
-    .ft-links a { display: block; color: var(--t2); text-decoration: none; font-size: 0.9rem; margin-bottom: 0.7rem; transition: color 0.3s; }
-    .ft-links a:hover { color: var(--red); }
-    .ft-bottom {
-        max-width: 1200px; margin: 0 auto; padding-top: 2rem;
-        border-top: 1px solid var(--bdr); display: flex;
-        justify-content: space-between; align-items: center;
-        color: var(--t3); font-size: 0.8rem;
+    /* ── CONTACT ── */
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 1.2rem; }
+    .contact-card {
+        background: var(--bg3); border: 1px solid var(--bdr); border-radius: 12px;
+        padding: 2rem; text-align: center; box-shadow: var(--card-shadow);
+        transition: all 0.3s;
     }
+    .contact-card:hover { transform: translateY(-3px); border-color: #e63946; }
+    .contact-card .ico { font-size: 2rem; margin-bottom: 0.8rem; }
+    .contact-card h3 { font-family: 'Oswald', sans-serif; font-size: 1.1rem; letter-spacing: 1.5px; margin-bottom: 0.4rem; }
+    .contact-card p, .contact-card a { color: var(--t2); font-size: 0.9rem; text-decoration: none; font-weight: 300; }
+    .contact-card a:hover { color: #e63946; }
 
-    /* ═══ LIGHTBOX ═══ */
-    .lb { display: none; position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.92); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); align-items: center; justify-content: center; cursor: zoom-out; }
+    /* ── FOOTER ── */
+    footer { background: var(--bg2); border-top: 1px solid var(--bdr); padding: 3rem 1.5rem 1.5rem; transition: background 0.4s; }
+    .ft-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .ft-inner p { color: var(--t3); font-size: 0.78rem; }
+    .ft-inner a { color: var(--t3); text-decoration: none; font-size: 0.78rem; }
+    .ft-inner a:hover { color: #e63946; }
+
+    /* ── LIGHTBOX ── */
+    .lb { display: none; position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.9); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); align-items: center; justify-content: center; cursor: zoom-out; }
     .lb.show { display: flex; }
-    .lb img { max-width: 90%; max-height: 90%; border-radius: 8px; }
+    .lb img { max-width: 92%; max-height: 90%; border-radius: 8px; }
 
-    /* ═══ ANIMATIONS ═══ */
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes pulse { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
-    .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16,1,0.3,1); }
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(25px); } to { opacity:1; transform:translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s cubic-bezier(0.16,1,0.3,1); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* ═══ RESPONSIVE ═══ */
-    @media (max-width: 900px) {
-        .nav-links {
-            position: fixed; top: 0; right: -100%; width: 75%; height: 100vh;
-            background-color: #111111 !important; flex-direction: column;
-            justify-content: center; padding: 2rem; gap: 2rem;
-            transition: right 0.4s; border-left: 1px solid var(--bdr);
-        }
-        .nav-links.open { right: 0; }
+    /* ── RESPONSIVE ── */
+    @media (max-width: 800px) {
+        .desk-nav { display: none; }
         .burger { display: flex; }
-        .about-grid, .devis-grid { grid-template-columns: 1fr; gap: 2rem; }
-        .gal-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
-        .gal-item:first-child { grid-row: auto; }
-        .ft-content { grid-template-columns: 1fr; gap: 2rem; }
-        .ft-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
-        .form-row { grid-template-columns: 1fr; }
-        .form-card { padding: 2rem 1.5rem; }
-        .map-bar { grid-template-columns: 1fr; gap: 0.8rem; }
-        .map-frame { height: 300px; }
+        .pres-hero { grid-template-columns: 1fr; }
+        .photo-strip { grid-template-columns: 1fr 1fr; }
+        .devis-layout { grid-template-columns: 1fr; }
+        .map-cards { grid-template-columns: 1fr; }
+        .fr { grid-template-columns: 1fr; }
+        .stats-row { grid-template-columns: 1fr; }
     }
     @media (max-width: 480px) {
-        .stats { grid-template-columns: 1fr; }
-        .gal-grid { grid-template-columns: 1fr; }
-        section { padding: 4rem 1.2rem; }
+        .photo-strip { grid-template-columns: 1fr; }
+        section { padding: 3.5rem 1.2rem; }
     }
 </style>
 ```
@@ -361,143 +326,105 @@
 </head>
 <body>
 
-<!-- ═══ NAV ═══ -->
+<!-- ═══ HEADER ═══ -->
 
-<nav id="navbar">
-    <a href="#" class="logo"><img src="logo.png" alt="ADC MECA"></a>
-    <ul class="nav-links" id="navLinks">
-        <li><a href="#about" onclick="closeMenu()">À propos</a></li>
-        <li><a href="#prestations" onclick="closeMenu()">Prestations</a></li>
-        <li><a href="#galerie" onclick="closeMenu()">Galerie</a></li>
-        <li><a href="#localisation" onclick="closeMenu()">Localisation</a></li>
-        <li><a href="#devis" onclick="closeMenu()" class="nav-cta">Devis gratuit</a></li>
+<header>
+    <a href="#" class="logo-link">
+        <img src="logo.png" alt="ADC MECA">
+        <span class="logo-text">ADC <span class="accent">MECA</span></span>
+    </a>
+    <ul class="desk-nav">
+        <li><a href="#presentation">Présentation</a></li>
+        <li><a href="#devis">Devis</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#nous-trouver">Nous trouver</a></li>
     </ul>
-    <div class="burger" id="burger" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
+    <div class="header-right">
+        <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème" onclick="toggleTheme()">
+            <svg class="moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+        <div class="burger" id="burger" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
     </div>
+</header>
+
+<!-- Mobile menu -->
+
+<div class="mobile-overlay" id="mobileOverlay" onclick="closeMenu()"></div>
+<nav class="mobile-menu" id="mobileMenu">
+    <a href="#presentation" onclick="closeMenu()">Présentation</a>
+    <a href="#devis" onclick="closeMenu()">Devis</a>
+    <a href="#contact" onclick="closeMenu()">Contact</a>
+    <a href="#nous-trouver" onclick="closeMenu()">Nous trouver</a>
 </nav>
 
 <!-- ═══ HERO ═══ -->
 
 <section class="hero">
     <div class="hero-bg"></div>
-    <div class="hero-grid"></div>
     <div class="hero-content">
-        <span class="hero-badge">Garage Automobile — Biganos</span>
-        <h1 class="hero-title">ADC <span class="red">MECA</span></h1>
-        <p class="hero-sub">Un service mécanique de qualité, des diagnostics précis et un travail soigné pour votre véhicule.</p>
+        <span class="hero-tag">Garage Automobile — Biganos (33)</span>
+        <h1 class="hero-title">ADC <span class="accent">MECA</span></h1>
+        <p class="hero-sub">Mécanique de qualité, diagnostics précis, travail soigné. Arthur Del Campo à votre service.</p>
         <div class="hero-btns">
-            <a href="#devis" class="btn btn-r">Demander un devis</a>
-            <a href="#about" class="btn btn-o">Découvrir</a>
-        </div>
-    </div>
-    <div class="scroll-ind"><span>Scroll</span><div class="line"></div></div>
-</section>
-
-<!-- ═══ À PROPOS ═══ -->
-
-<section id="about" class="sec-dark">
-    <div class="container">
-        <div class="about-grid">
-            <div class="about-img reveal">
-                <img src="portrait.jpg" alt="Arthur Del Campo — ADC MECA">
-            </div>
-            <div class="about-text reveal">
-                <span class="s-label">À propos</span>
-                <h3>L'excellence mécanique, <span class="red">simplement.</span></h3>
-                <p>ADC MECA, c'est l'histoire d'Arthur Del Campo, passionné d'automobile et mécanicien confirmé. Basé à Biganos, au cœur du Bassin d'Arcachon, son atelier vous accueille pour tous vos besoins en mécanique, de l'entretien courant aux réparations les plus complexes.</p>
-                <p>Fort de son expérience, notamment en compétition automobile, Arthur met un point d'honneur à fournir un travail soigné, des diagnostics transparents et des tarifs justes. Votre confiance est son moteur.</p>
-                <div class="stats">
-                    <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Satisfaits</div></div>
-                    <div class="stat"><div class="stat-n">Pro</div><div class="stat-l">Équipement</div></div>
-                    <div class="stat"><div class="stat-n">Devis</div><div class="stat-l">Gratuit</div></div>
-                </div>
-            </div>
+            <a href="#devis" class="btn btn-r">Devis gratuit</a>
+            <a href="#presentation" class="btn btn-o">Découvrir</a>
         </div>
     </div>
 </section>
 
-<!-- ═══ PRESTATIONS ═══ -->
+<!-- ═══ PRÉSENTATION ═══ -->
 
-<section id="prestations">
+<section id="presentation" class="sec-alt">
     <div class="container">
-        <div class="s-head reveal">
-            <span class="s-label">Nos prestations</span>
-            <h2 class="s-title">Ce qu'on fait pour vous</h2>
-            <p class="s-desc">Un accompagnement complet pour l'entretien et la réparation de votre véhicule.</p>
-        </div>
-        <div class="srv-grid">
-            <div class="srv reveal">
-                <div class="srv-ico">🔧</div>
-                <h3>Mécanique générale</h3>
-                <p>Entretien courant, vidange, révision complète, remplacement de pièces d'usure. On s'occupe de tout pour que votre véhicule reste fiable.</p>
+        <div class="pres-hero reveal">
+            <div class="pres-photo">
+                <img src="portrait.jpg" alt="Arthur Del Campo — Fondateur ADC MECA">
             </div>
-            <div class="srv reveal">
-                <div class="srv-ico">🖥️</div>
-                <h3>Diagnostic</h3>
-                <p>Diagnostic électronique et mécanique complet pour identifier rapidement l'origine du problème et vous proposer la meilleure solution.</p>
-            </div>
-            <div class="srv reveal">
-                <div class="srv-ico">⚙️</div>
-                <h3>Freinage</h3>
-                <p>Remplacement plaquettes et disques, purge du circuit de freinage, contrôle complet du système pour votre sécurité.</p>
-            </div>
-            <div class="srv reveal">
-                <div class="srv-ico">🛞</div>
-                <h3>Pneumatiques</h3>
-                <p>Montage, équilibrage, permutation et vente de pneumatiques. Conseils personnalisés selon votre usage et votre budget.</p>
-            </div>
-            <div class="srv reveal">
-                <div class="srv-ico">🔋</div>
-                <h3>Électricité auto</h3>
-                <p>Batterie, alternateur, démarreur, éclairage — on intervient sur tout le circuit électrique de votre véhicule.</p>
-            </div>
-            <div class="srv reveal">
-                <div class="srv-ico">🏎️</div>
-                <h3>Préparation CT</h3>
-                <p>Pré-contrôle et mise aux normes avant le passage au contrôle technique pour passer sereinement.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ═══ GALERIE ═══ -->
-
-<section id="galerie" class="sec-dark">
-    <div class="container">
-        <div class="s-head reveal">
-            <span class="s-label">Galerie</span>
-            <h2 class="s-title">Notre travail en images</h2>
-            <p class="s-desc">Un aperçu de l'atelier et des réalisations d'Arthur.</p>
-        </div>
-        <div class="gal-grid reveal">
-            <div class="gal-item" onclick="openLB(this.querySelector('img'))">
-                <img src="atelier1.jpg" alt="Travail en atelier — ADC MECA">
-            </div>
-            <div class="gal-item" onclick="openLB(this.querySelector('img'))">
-                <img src="diagnostic.jpg" alt="Diagnostic moteur — ADC MECA">
-            </div>
-            <div class="gal-item" onclick="openLB(this.querySelector('img'))">
-                <img src="rallye.jpg" alt="Intervention rallye — ADC MECA">
-            </div>
-            <div class="gal-item" onclick="openLB(this.querySelector('img'))">
-                <img src="portrait.jpg" alt="Arthur Del Campo — ADC MECA">
-            </div>
-            <div class="gal-item" onclick="openLB(this.querySelector('img'))">
-                <img src="logo.png" alt="Logo ADC MECA" style="object-fit:contain; background:#1a1a1a; padding:1.5rem;">
+            <div class="pres-text">
+                <span class="s-label">Présentation</span>
+                <h2 class="s-title">Arthur Del Campo</h2>
+                <p>Passionné d'automobile depuis toujours, Arthur a fondé ADC MECA à Biganos, au cœur du Bassin d'Arcachon. Son atelier vous accueille pour tous vos besoins en mécanique.</p>
+                <p>Fort de son expérience en compétition automobile, il met un point d'honneur à fournir un travail soigné, des diagnostics transparents et des tarifs justes.</p>
+                <p><strong style="color:var(--t1);">Votre confiance est son moteur.</strong></p>
             </div>
         </div>
 
 ```
-    <div class="video-wrap reveal">
-        <h3 style="text-align:center; font-family:var(--ff); font-size:1.8rem; letter-spacing:2px; margin-bottom:2rem; color:#f1f1f1;">Vidéo de présentation</h3>
-        <div class="video-box">
-            <div class="ph">
-                <button class="play-btn" onclick="alert('Remplacez ce placeholder par votre lien YouTube !')">
-                    <svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg>
-                </button>
-                <p>Intégrez votre vidéo YouTube ici</p>
-            </div>
+    <!-- Photos intégrées dans la présentation -->
+    <div class="photo-strip reveal">
+        <div class="photo-strip-item" onclick="openLB(this.querySelector('img'))">
+            <img src="atelier1.jpg" alt="Travail en atelier">
+        </div>
+        <div class="photo-strip-item" onclick="openLB(this.querySelector('img'))">
+            <img src="diagnostic.jpg" alt="Diagnostic moteur">
+        </div>
+        <div class="photo-strip-item" onclick="openLB(this.querySelector('img'))">
+            <img src="rallye.jpg" alt="Intervention rallye">
+        </div>
+    </div>
+
+    <div class="stats-row reveal">
+        <div class="stat-card"><div class="stat-num">100%</div><div class="stat-lbl">Clients satisfaits</div></div>
+        <div class="stat-card"><div class="stat-num">Pro</div><div class="stat-lbl">Équipement</div></div>
+        <div class="stat-card"><div class="stat-num">Gratuit</div><div class="stat-lbl">Devis</div></div>
+    </div>
+
+    <!-- Prestations -->
+    <div style="margin-top:4rem;">
+        <div class="s-head reveal">
+            <span class="s-label">Nos prestations</span>
+            <h2 class="s-title">Ce qu'on fait pour vous</h2>
+        </div>
+        <div class="srv-grid reveal">
+            <div class="srv"><div class="srv-ico">🔧</div><h3>Mécanique générale</h3><p>Entretien, vidange, révision, remplacement de pièces d'usure.</p></div>
+            <div class="srv"><div class="srv-ico">🖥️</div><h3>Diagnostic</h3><p>Diagnostic électronique et mécanique complet.</p></div>
+            <div class="srv"><div class="srv-ico">⚙️</div><h3>Freinage</h3><p>Plaquettes, disques, purge, contrôle complet.</p></div>
+            <div class="srv"><div class="srv-ico">🛞</div><h3>Pneumatiques</h3><p>Montage, équilibrage, permutation, vente.</p></div>
+            <div class="srv"><div class="srv-ico">🔋</div><h3>Électricité auto</h3><p>Batterie, alternateur, démarreur, éclairage.</p></div>
+            <div class="srv"><div class="srv-ico">🏎️</div><h3>Préparation CT</h3><p>Pré-contrôle et mise aux normes.</p></div>
         </div>
     </div>
 </div>
@@ -505,96 +432,118 @@
 
 </section>
 
-<!-- ═══ LOCALISATION ═══ -->
-
-<section id="localisation" class="sec-dark">
-    <div class="container">
-        <div class="s-head reveal">
-            <span class="s-label">Localisation</span>
-            <h2 class="s-title">Nous trouver</h2>
-            <p class="s-desc">Situé à Biganos, au cœur du Bassin d'Arcachon.</p>
-        </div>
-        <div class="map-wrap reveal">
-            <div class="map-bar">
-                <div class="map-item">
-                    <span class="map-ico">📍</span>
-                    <div><strong>Adresse</strong><span>6 Allée du Papyrus, 33380 Biganos</span></div>
-                </div>
-                <div class="map-item">
-                    <span class="map-ico">🕐</span>
-                    <div><strong>Horaires</strong><span>Lun — Ven : 8h30 — 18h30</span></div>
-                </div>
-                <div class="map-item">
-                    <span class="map-ico">📞</span>
-                    <div><strong>Téléphone</strong><a href="tel:0675791169" style="color:var(--red);">06 75 79 11 69</a></div>
-                </div>
-            </div>
-            <div class="map-frame">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2835.5!2d-0.9753!3d44.6383!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd54998761de77e1%3A0xefce8238f60b23c4!2s6%20All.%20du%20Papyrus%2C%2033380%20Biganos!5e0!3m2!1sfr!2sfr!4v1700000000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-            <a href="https://maps.google.com/maps/place//data=!4m2!3m1!1s0xd54998761de77e1:0xefce8238f60b23c4?entry=s&sa=X&hl=fr" target="_blank" class="btn btn-o" style="margin-top:1.5rem;">
-                Ouvrir dans Google Maps →
-            </a>
-        </div>
-    </div>
-</section>
-
 <!-- ═══ DEVIS ═══ -->
 
 <section id="devis">
     <div class="container">
         <div class="s-head reveal">
-            <span class="s-label">Contact</span>
-            <h2 class="s-title">Demande de devis gratuit</h2>
-            <p class="s-desc">Remplissez le formulaire ci-dessous, nous vous répondrons dans les plus brefs délais.</p>
+            <span class="s-label">Devis gratuit</span>
+            <h2 class="s-title">Demandez votre devis</h2>
+            <p class="s-desc">Remplissez le formulaire, nous vous répondrons sous 24h.</p>
         </div>
-        <div class="devis-grid">
-            <div class="devis-info reveal">
+        <div class="devis-layout">
+            <div class="devis-side reveal">
                 <h3>Parlons de votre véhicule</h3>
-                <p>Décrivez-nous votre besoin et nous vous établirons un devis détaillé, gratuit et sans engagement. Nous nous engageons à vous répondre sous 24h.</p>
-                <div class="c-item"><div class="c-ico">📍</div><span>6 Allée du Papyrus, 33380 Biganos</span></div>
-                <div class="c-item"><div class="c-ico">📞</div><a href="tel:0675791169">06 75 79 11 69</a></div>
-                <div class="c-item"><div class="c-ico">✉️</div><span>contact@adcmeca.fr</span></div>
-                <div class="c-item"><div class="c-ico">🕐</div><span>Lun — Ven : 8h30 — 18h30 | Sam-Dim : Fermé</span></div>
+                <p>Décrivez votre besoin et nous établirons un devis détaillé, gratuit et sans engagement.</p>
+                <div class="ci"><div class="ci-ico">📍</div><span>6 Allée du Papyrus, 33380 Biganos</span></div>
+                <div class="ci"><div class="ci-ico">📞</div><a href="tel:0675791169">06 75 79 11 69</a></div>
+                <div class="ci"><div class="ci-ico">✉️</div><span>contact@adcmeca.fr</span></div>
+                <div class="ci"><div class="ci-ico">🕐</div><span>Lun–Ven : 8h30–18h30</span></div>
             </div>
             <div class="form-card reveal">
                 <form id="devisForm">
-                    <div class="form-row">
-                        <div class="fg"><label for="nom">Nom *</label><input type="text" id="nom" name="nom" required placeholder="Votre nom"></div>
-                        <div class="fg"><label for="prenom">Prénom *</label><input type="text" id="prenom" name="prenom" required placeholder="Votre prénom"></div>
+                    <div class="fr">
+                        <div class="fg"><label>Nom *</label><input type="text" name="nom" required placeholder="Votre nom"></div>
+                        <div class="fg"><label>Prénom *</label><input type="text" name="prenom" required placeholder="Votre prénom"></div>
                     </div>
-                    <div class="form-row">
-                        <div class="fg"><label for="email">Email *</label><input type="email" id="email" name="email" required placeholder="votre@email.fr"></div>
-                        <div class="fg"><label for="tel">Téléphone *</label><input type="tel" id="tel" name="tel" required placeholder="06 XX XX XX XX"></div>
+                    <div class="fr">
+                        <div class="fg"><label>Email *</label><input type="email" name="email" required placeholder="votre@email.fr"></div>
+                        <div class="fg"><label>Téléphone *</label><input type="tel" name="tel" required placeholder="06 XX XX XX XX"></div>
                     </div>
-                    <div class="form-row">
-                        <div class="fg"><label for="marque">Marque du véhicule</label><input type="text" id="marque" name="marque" placeholder="Ex: Renault, Peugeot..."></div>
-                        <div class="fg"><label for="modele">Modèle</label><input type="text" id="modele" name="modele" placeholder="Ex: Clio, 308..."></div>
+                    <div class="fr">
+                        <div class="fg"><label>Marque</label><input type="text" name="marque" placeholder="Ex: Renault"></div>
+                        <div class="fg"><label>Modèle</label><input type="text" name="modele" placeholder="Ex: Clio"></div>
                     </div>
-                    <div class="form-row">
-                        <div class="fg"><label for="annee">Année</label><input type="text" id="annee" name="annee" placeholder="Ex: 2019"></div>
-                        <div class="fg"><label for="prestation">Type de prestation</label>
-                            <select id="prestation" name="prestation">
+                    <div class="fr">
+                        <div class="fg"><label>Année</label><input type="text" name="annee" placeholder="Ex: 2019"></div>
+                        <div class="fg"><label>Prestation</label>
+                            <select name="prestation">
                                 <option value="">— Sélectionner —</option>
-                                <option value="entretien">Entretien / Révision</option>
-                                <option value="diagnostic">Diagnostic</option>
-                                <option value="freinage">Freinage</option>
-                                <option value="pneumatiques">Pneumatiques</option>
-                                <option value="electricite">Électricité auto</option>
-                                <option value="ct">Préparation CT</option>
-                                <option value="autre">Autre</option>
+                                <option>Entretien / Révision</option>
+                                <option>Diagnostic</option>
+                                <option>Freinage</option>
+                                <option>Pneumatiques</option>
+                                <option>Électricité</option>
+                                <option>Préparation CT</option>
+                                <option>Autre</option>
                             </select>
                         </div>
                     </div>
-                    <div class="fg"><label for="message">Décrivez votre besoin *</label><textarea id="message" name="message" required placeholder="Décrivez le problème rencontré ou la prestation souhaitée..."></textarea></div>
-                    <button type="submit" class="btn btn-r btn-sub">Envoyer ma demande de devis</button>
+                    <div class="fg"><label>Décrivez votre besoin *</label><textarea name="message" required placeholder="Décrivez le problème ou la prestation souhaitée..."></textarea></div>
+                    <button type="submit" class="btn btn-r btn-sub">Envoyer la demande</button>
                 </form>
                 <div class="form-ok" id="formOk">
                     <div class="chk">✓</div>
                     <h3>Demande envoyée !</h3>
-                    <p>Nous reviendrons vers vous dans les plus brefs délais.</p>
+                    <p>Nous vous recontactons très vite.</p>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+
+<section id="contact" class="sec-alt">
+    <div class="container">
+        <div class="s-head reveal">
+            <span class="s-label">Contact</span>
+            <h2 class="s-title">Restons en contact</h2>
+        </div>
+        <div class="contact-grid reveal">
+            <div class="contact-card">
+                <div class="ico">📍</div>
+                <h3>Adresse</h3>
+                <p>6 Allée du Papyrus<br>33380 Biganos</p>
+            </div>
+            <div class="contact-card">
+                <div class="ico">📞</div>
+                <h3>Téléphone</h3>
+                <a href="tel:0675791169">06 75 79 11 69</a>
+            </div>
+            <div class="contact-card">
+                <div class="ico">🕐</div>
+                <h3>Horaires</h3>
+                <p>Lun–Ven : 8h30–18h30<br>Sam–Dim : Fermé</p>
+            </div>
+            <div class="contact-card">
+                <div class="ico">✉️</div>
+                <h3>Email</h3>
+                <a href="mailto:contact@adcmeca.fr">contact@adcmeca.fr</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ NOUS TROUVER ═══ -->
+
+<section id="nous-trouver">
+    <div class="container">
+        <div class="s-head reveal">
+            <span class="s-label">Localisation</span>
+            <h2 class="s-title">Nous trouver</h2>
+            <p class="s-desc">Au cœur du Bassin d'Arcachon, à Biganos.</p>
+        </div>
+        <div class="map-wrap reveal">
+            <div class="map-cards">
+                <div class="mc"><span class="mc-ico">📍</span><div><strong>Adresse</strong><span>6 All. du Papyrus, 33380 Biganos</span></div></div>
+                <div class="mc"><span class="mc-ico">🕐</span><div><strong>Horaires</strong><span>Lun–Ven : 8h30–18h30</span></div></div>
+                <div class="mc"><span class="mc-ico">📞</span><div><strong>Téléphone</strong><a href="tel:0675791169" style="color:#e63946;">06 75 79 11 69</a></div></div>
+            </div>
+            <div class="map-box">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2835.5!2d-0.9753!3d44.6383!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd54998761de77e1%3A0xefce8238f60b23c4!2s6%20All.%20du%20Papyrus%2C%2033380%20Biganos!5e0!3m2!1sfr!2sfr!4v1700000000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <a href="https://maps.google.com/maps/place//data=!4m2!3m1!1s0xd54998761de77e1:0xefce8238f60b23c4?entry=s&sa=X&hl=fr" target="_blank" class="btn btn-o map-link">Ouvrir dans Google Maps →</a>
         </div>
     </div>
 </section>
@@ -602,68 +551,95 @@
 <!-- ═══ FOOTER ═══ -->
 
 <footer>
-    <div class="ft-content">
-        <div class="ft-brand">
-            <a href="#" class="logo"><img src="logo.png" alt="ADC MECA"></a>
-            <p>ADC MECA — Arthur Del Campo. Votre garage de confiance à Biganos pour un service mécanique de qualité. Devis gratuit, travail soigné, tarifs justes.</p>
+    <div class="ft-inner">
+        <p>© 2026 ADC MECA — Arthur Del Campo — Tous droits réservés</p>
+        <div style="display:flex; gap:1.5rem;">
+            <a href="#presentation">Présentation</a>
+            <a href="#devis">Devis</a>
+            <a href="#contact">Contact</a>
+            <a href="#nous-trouver">Nous trouver</a>
         </div>
-        <div class="ft-links">
-            <h4>Navigation</h4>
-            <a href="#about">À propos</a>
-            <a href="#prestations">Prestations</a>
-            <a href="#galerie">Galerie</a>
-            <a href="#localisation">Localisation</a>
-            <a href="#devis">Devis gratuit</a>
-        </div>
-        <div class="ft-links">
-            <h4>Coordonnées</h4>
-            <a href="#">6 All. du Papyrus, 33380 Biganos</a>
-            <a href="tel:0675791169">06 75 79 11 69</a>
-            <a href="#">Lun — Ven : 8h30 — 18h30</a>
-            <a href="#">Sam — Dim : Fermé</a>
-        </div>
-    </div>
-    <div class="ft-bottom">
-        <span>© 2026 ADC MECA — Arthur Del Campo — Tous droits réservés</span>
-        <span>Site réalisé avec ❤️</span>
     </div>
 </footer>
 
-<!-- ═══ LIGHTBOX ═══ -->
+<!-- Lightbox -->
 
 <div class="lb" id="lb" onclick="closeLB()"><img id="lbImg" src="" alt=""></div>
 
 <script>
-window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50)});
-function toggleMenu(){document.getElementById('navLinks').classList.toggle('open');document.getElementById('burger').classList.toggle('active')}
-function closeMenu(){document.getElementById('navLinks').classList.remove('open');document.getElementById('burger').classList.remove('active')}
+// Theme
+function toggleTheme() {
+    const html = document.documentElement;
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    document.querySelector('meta[name="theme-color"]').content = next === 'dark' ? '#0b0b0b' : '#f5f4f0';
+    localStorage.setItem('theme', next);
+}
+// Restore saved theme
+(function(){
+    const saved = localStorage.getItem('theme');
+    if (saved) {
+        document.documentElement.setAttribute('data-theme', saved);
+        document.querySelector('meta[name="theme-color"]').content = saved === 'dark' ? '#0b0b0b' : '#f5f4f0';
+    }
+})();
 
-const obs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*100);obs.unobserve(e.target)}})},{threshold:0.1});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+// Mobile menu
+function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+    document.getElementById('mobileOverlay').classList.toggle('show');
+    document.getElementById('burger').classList.toggle('active');
+}
+function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.getElementById('mobileOverlay').classList.remove('show');
+    document.getElementById('burger').classList.remove('active');
+}
 
-const EMAIL='contact@adcmeca.fr';
-document.getElementById('devisForm').addEventListener('submit',function(e){
+// Reveal
+const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+        if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 80); obs.unobserve(e.target); }
+    });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Form
+document.getElementById('devisForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    const d=Object.fromEntries(new FormData(this));
-    const subj=encodeURIComponent('Demande de devis — '+d.marque+' '+d.modele);
-    const body=encodeURIComponent(
-        'Nouvelle demande de devis ADC MECA\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n'+
-        'Client : '+d.prenom+' '+d.nom+'\n'+
-        'Email : '+d.email+'\n'+
-        'Téléphone : '+d.tel+'\n\n'+
-        'Véhicule : '+d.marque+' '+d.modele+' ('+d.annee+')\n'+
-        'Prestation : '+d.prestation+'\n\n'+
-        'Description :\n'+d.message
+    const d = Object.fromEntries(new FormData(this));
+    const subj = encodeURIComponent('Demande de devis — ' + d.marque + ' ' + d.modele);
+    const body = encodeURIComponent(
+        'Nouvelle demande de devis ADC MECA\n\n' +
+        'Client : ' + d.prenom + ' ' + d.nom + '\n' +
+        'Email : ' + d.email + '\n' +
+        'Tél : ' + d.tel + '\n\n' +
+        'Véhicule : ' + d.marque + ' ' + d.modele + ' (' + d.annee + ')\n' +
+        'Prestation : ' + d.prestation + '\n\n' +
+        'Description :\n' + d.message
     );
-    window.location.href='mailto:'+EMAIL+'?subject='+subj+'&body='+body;
-    this.style.display='none';
+    window.location.href = 'mailto:contact@adcmeca.fr?subject=' + subj + '&body=' + body;
+    this.style.display = 'none';
     document.getElementById('formOk').classList.add('show');
 });
 
-function openLB(img){document.getElementById('lbImg').src=img.src;document.getElementById('lb').classList.add('show')}
-function closeLB(){document.getElementById('lb').classList.remove('show')}
+// Lightbox
+function openLB(img) { document.getElementById('lbImg').src = img.src; document.getElementById('lb').classList.add('show'); }
+function closeLB() { document.getElementById('lb').classList.remove('show'); }
 
-document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();const t=document.querySelector(this.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', function(e) {
+        e.preventDefault();
+        const t = document.querySelector(this.getAttribute('href'));
+        if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+});
+
+// Nav scroll
+window.addEventListener('scroll', () => {
+    document.querySelector('header').style.boxShadow = window.scrollY > 50 ? '0 2px 20px rgba(0,0,0,0.3)' : 'none';
+});
 </script>
 
 </body>
