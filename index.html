@@ -141,6 +141,14 @@
             radial-gradient(ellipse at 30% 50%, rgba(230,57,70,0.08) 0%, transparent 60%),
             radial-gradient(ellipse at 70% 30%, rgba(230,57,70,0.04) 0%, transparent 50%);
     }
+    .hero-logo-bg {
+        position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        width: 55vw; max-width: 500px; opacity: 0.07;
+        pointer-events: none; z-index: 1;
+        transition: opacity 0.4s;
+    }
+    [data-theme="light"] .hero-logo-bg { opacity: 0.06; }
+    .hero-logo-bg img { width: 100%; height: auto; display: block; }
     .hero-content { text-align: center; z-index: 2; padding: 2rem; }
     .hero-tag {
         display: inline-block; padding: 0.35rem 1rem; border: 1px solid var(--bdr2);
@@ -364,6 +372,7 @@
 
 <section class="hero">
     <div class="hero-bg"></div>
+    <div class="hero-logo-bg"><img src="logo.png" alt=""></div>
     <div class="hero-content">
         <span class="hero-tag">Garage Automobile — Biganos (33)</span>
         <h1 class="hero-title">ADC <span class="accent">MECA</span></h1>
