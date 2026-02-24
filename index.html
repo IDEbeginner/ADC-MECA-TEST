@@ -71,7 +71,6 @@
     [data-theme="light"] .pres-photo { border-color: #d4d4d8; }
     [data-theme="light"] .map-box { border-color: #d4d4d8; }
     [data-theme="light"] .theme-toggle { background: #f4f4f5; border-color: #d4d4d8; }
-    [data-theme="light"] .theme-toggle svg { fill: #111; }
     [data-theme="light"] .burger { background: #f4f4f5; border-color: #d4d4d8; }
     [data-theme="light"] .nav-links a { color: #4a4a4a; }
     [data-theme="light"] .desk-nav a { color: #4a4a4a; }
@@ -117,9 +116,8 @@
         transition: all 0.3s; position: relative; flex-shrink: 0;
     }
     .theme-toggle:hover { border-color: #e63946; }
-    .theme-toggle .sun { display: var(--sun-display); }
-    .theme-toggle .moon { display: var(--moon-display); }
-    .theme-toggle svg { width: 18px; height: 18px; fill: var(--t1); transition: fill 0.4s; }
+    .theme-toggle .sun { display: var(--sun-display); font-size: 1.1rem; line-height: 1; }
+    .theme-toggle .moon { display: var(--moon-display); font-size: 1.1rem; line-height: 1; }
 
     /* Burger */
     .burger {
@@ -394,8 +392,8 @@
     </ul>
     <div class="header-right">
         <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème" onclick="toggleTheme()">
-            <svg class="moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-            <svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <span class="moon">🌙</span>
+            <span class="sun">☀️</span>
         </button>
         <div class="burger" id="burger" onclick="toggleMenu()">
             <span></span><span></span><span></span>
@@ -624,17 +622,57 @@
 // Theme
 function toggleTheme() {
     const html = document.documentElement;
-    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    const isLight = html.getAttribute('data-theme') === 'light';
+    const next = isLight ? 'dark' : 'light';
     html.setAttribute('data-theme', next);
-    document.querySelector('meta[name="theme-color"]').content = next === 'dark' ? '#0b0b0b' : '#f5f4f0';
+    document.querySelector('meta[name="theme-color"]').content = next === 'dark' ? '#0b0b0b' : '#ffffff';
     localStorage.setItem('theme', next);
+    applyTheme(next);
+}
+function applyTheme(theme) {
+    // Force styles on elements that CSS selectors might miss
+    const b = document.body;
+    const cards = document.querySelectorAll('.form-card');
+    const inputs = document.querySelectorAll('.fg input, .fg select, .fg textarea');
+    const srvs = document.querySelectorAll('.srv');
+    const stats = document.querySelectorAll('.stat-card');
+    const contacts = document.querySelectorAll('.contact-card');
+    const mcs = document.querySelectorAll('.mc');
+    
+    if (theme === 'light') {
+        b.style.background = '#ffffff';
+        b.style.color = '#111';
+        cards.forEach(c => { c.style.background = '#fff'; c.style.border = '2px solid #d4d4d8'; });
+        inputs.forEach(i => { i.style.background = '#fafafa'; i.style.borderColor = '#d4d4d8'; i.style.color = '#111'; });
+        srvs.forEach(s => { s.style.background = '#fff'; s.style.borderColor = '#d4d4d8'; });
+        stats.forEach(s => { s.style.background = '#fff'; s.style.borderColor = '#d4d4d8'; });
+        contacts.forEach(c => { c.style.background = '#fff'; c.style.borderColor = '#d4d4d8'; });
+        mcs.forEach(m => { m.style.background = '#fff'; m.style.borderColor = '#d4d4d8'; });
+    } else {
+        b.style.background = '#0b0b0b';
+        b.style.color = '#f0f0f0';
+        cards.forEach(c => { c.style.background = ''; c.style.border = ''; });
+        inputs.forEach(i => { i.style.background = ''; i.style.borderColor = ''; i.style.color = ''; });
+        srvs.forEach(s => { s.style.background = ''; s.style.borderColor = ''; });
+        stats.forEach(s => { s.style.background = ''; s.style.borderColor = ''; });
+        contacts.forEach(c => { c.style.background = ''; c.style.borderColor = ''; });
+        mcs.forEach(m => { m.style.background = ''; m.style.borderColor = ''; });
+    }
 }
 // Restore saved theme
 (function(){
     const saved = localStorage.getItem('theme');
     if (saved) {
         document.documentElement.setAttribute('data-theme', saved);
-        document.querySelector('meta[name="theme-color"]').content = saved === 'dark' ? '#0b0b0b' : '#f5f4f0';
+        document.querySelector('meta[name="theme-color"]').content = saved === 'dark' ? '#0b0b0b' : '#ffffff';
+        if (saved === 'light') {
+            // Wait for DOM to be ready before applying
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => applyTheme('light'));
+            } else {
+                applyTheme('light');
+            }
+        }
     }
 })();
 
