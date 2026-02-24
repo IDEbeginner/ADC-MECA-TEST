@@ -116,8 +116,13 @@
         transition: all 0.3s; position: relative; flex-shrink: 0;
     }
     .theme-toggle:hover { border-color: #e63946; }
-    .theme-toggle .sun { display: var(--sun-display); font-size: 1.1rem; line-height: 1; }
-    .theme-toggle .moon { display: var(--moon-display); font-size: 1.1rem; line-height: 1; }
+    .theme-toggle .sun, .theme-toggle .moon { font-size: 1.1rem; line-height: 1; }
+    /* Dark mode: show moon, hide sun */
+    [data-theme="dark"] .theme-toggle .moon { display: inline; }
+    [data-theme="dark"] .theme-toggle .sun { display: none; }
+    /* Light mode: show sun, hide moon */
+    [data-theme="light"] .theme-toggle .sun { display: inline; }
+    [data-theme="light"] .theme-toggle .moon { display: none; }
 
     /* Burger */
     .burger {
@@ -630,7 +635,6 @@ function toggleTheme() {
     applyTheme(next);
 }
 function applyTheme(theme) {
-    // Force styles on elements that CSS selectors might miss
     const b = document.body;
     const cards = document.querySelectorAll('.form-card');
     const inputs = document.querySelectorAll('.fg input, .fg select, .fg textarea');
@@ -638,6 +642,11 @@ function applyTheme(theme) {
     const stats = document.querySelectorAll('.stat-card');
     const contacts = document.querySelectorAll('.contact-card');
     const mcs = document.querySelectorAll('.mc');
+    const moonEl = document.querySelector('.theme-toggle .moon');
+    const sunEl = document.querySelector('.theme-toggle .sun');
+    
+    if (moonEl) moonEl.style.display = theme === 'dark' ? 'inline' : 'none';
+    if (sunEl) sunEl.style.display = theme === 'light' ? 'inline' : 'none';
     
     if (theme === 'light') {
         b.style.background = '#ffffff';
@@ -661,18 +670,13 @@ function applyTheme(theme) {
 }
 // Restore saved theme
 (function(){
-    const saved = localStorage.getItem('theme');
-    if (saved) {
-        document.documentElement.setAttribute('data-theme', saved);
-        document.querySelector('meta[name="theme-color"]').content = saved === 'dark' ? '#0b0b0b' : '#ffffff';
-        if (saved === 'light') {
-            // Wait for DOM to be ready before applying
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', () => applyTheme('light'));
-            } else {
-                applyTheme('light');
-            }
-        }
+    const saved = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', saved);
+    document.querySelector('meta[name="theme-color"]').content = saved === 'dark' ? '#0b0b0b' : '#ffffff';
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => applyTheme(saved));
+    } else {
+        applyTheme(saved);
     }
 })();
 
