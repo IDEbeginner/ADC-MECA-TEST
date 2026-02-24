@@ -18,7 +18,7 @@
     [data-theme="dark"] {
         --bg: #0b0b0b; --bg2: #131313; --bg3: #1a1a1a; --bg3h: #222;
         --t1: #f0f0f0; --t2: #999; --t3: #555;
-        --bdr: #1f1f1f; --bdr2: #2c2c2c;
+        --bdr: #333; --bdr2: #444;
         --card-shadow: 0 4px 24px rgba(0,0,0,0.4);
         --overlay: rgba(11,11,11,0.7);
         --input-bg: #111;
@@ -660,12 +660,12 @@ function applyTheme(theme) {
     } else {
         b.style.background = '#0b0b0b';
         b.style.color = '#f0f0f0';
-        cards.forEach(c => { c.style.background = ''; c.style.border = ''; });
-        inputs.forEach(i => { i.style.background = ''; i.style.borderColor = ''; i.style.color = ''; });
-        srvs.forEach(s => { s.style.background = ''; s.style.borderColor = ''; });
-        stats.forEach(s => { s.style.background = ''; s.style.borderColor = ''; });
-        contacts.forEach(c => { c.style.background = ''; c.style.borderColor = ''; });
-        mcs.forEach(m => { m.style.background = ''; m.style.borderColor = ''; });
+        cards.forEach(c => { c.style.background = '#1a1a1a'; c.style.border = '2px solid #333'; });
+        inputs.forEach(i => { i.style.background = '#111'; i.style.borderColor = '#444'; i.style.color = '#f0f0f0'; });
+        srvs.forEach(s => { s.style.background = '#1a1a1a'; s.style.borderColor = '#333'; });
+        stats.forEach(s => { s.style.background = '#1a1a1a'; s.style.borderColor = '#333'; });
+        contacts.forEach(c => { c.style.background = '#1a1a1a'; c.style.borderColor = '#333'; });
+        mcs.forEach(m => { m.style.background = '#1a1a1a'; m.style.borderColor = '#333'; });
     }
 }
 // Restore saved theme
