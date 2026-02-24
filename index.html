@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <style>
         *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
@@ -314,6 +315,48 @@
     .fg select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 12 12'%3E%3Cpath fill='%23999' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; }
     .fg select option { background: var(--bg); color: var(--t1); }
     .btn-sub { width: 100%; padding: 1rem; }
+    
+    /* File upload zone */
+    .file-zone {
+        border: 2px dashed var(--bdr2); border-radius: 10px;
+        padding: 1.5rem; text-align: center; cursor: pointer;
+        transition: border-color 0.3s, background 0.3s;
+        margin-bottom: 1rem; position: relative;
+    }
+    .file-zone:hover, .file-zone.dragover {
+        border-color: #e63946; background: rgba(230,57,70,0.05);
+    }
+    .file-zone input[type="file"] {
+        position: absolute; inset: 0; opacity: 0; cursor: pointer;
+        width: 100%; height: 100%;
+    }
+    .file-zone-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .file-zone-text { color: var(--t2); font-size: 0.85rem; font-weight: 300; }
+    .file-zone-text strong { color: #e63946; font-weight: 600; }
+    .file-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+    .file-item {
+        display: flex; align-items: center; gap: 0.5rem;
+        background: var(--bg2); border: 1px solid var(--bdr);
+        border-radius: 6px; padding: 0.4rem 0.8rem; font-size: 0.8rem;
+        color: var(--t2); transition: background 0.3s;
+    }
+    .file-item img {
+        width: 32px; height: 32px; object-fit: cover; border-radius: 4px;
+    }
+    .file-remove {
+        background: none; border: none; color: #e63946; cursor: pointer;
+        font-size: 1.1rem; padding: 0 0.2rem; line-height: 1;
+    }
+    .file-remove:hover { color: #c1121f; }
+    .form-loading { display: none; text-align: center; padding: 2rem; }
+    .form-loading.show { display: block; }
+    .spinner {
+        width: 40px; height: 40px; border: 3px solid var(--bdr);
+        border-top-color: #e63946; border-radius: 50%;
+        animation: spin 0.8s linear infinite; margin: 0 auto 1rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
     .form-ok { display: none; text-align: center; padding: 2.5rem; }
     .form-ok.show { display: block; animation: fadeUp 0.5s; }
     .form-ok .chk { width: 60px; height: 60px; border-radius: 50%; background: rgba(46,196,113,0.1); border: 2px solid #2ec471; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.8rem; color: #2ec471; }
@@ -535,8 +578,21 @@
                         </div>
                     </div>
                     <div class="fg"><label>Décrivez votre besoin *</label><textarea name="message" required placeholder="Décrivez le problème ou la prestation souhaitée..."></textarea></div>
-                    <button type="submit" class="btn btn-r btn-sub">Envoyer la demande</button>
+                    <div class="fg">
+                        <label>Photos / Documents (optionnel)</label>
+                        <div class="file-zone" id="fileZone">
+                            <input type="file" id="fileInput" multiple accept="image/*,.pdf,.doc,.docx">
+                            <div class="file-zone-icon">📎</div>
+                            <div class="file-zone-text"><strong>Cliquez</strong> ou glissez vos fichiers ici<br>Images, PDF, documents — 5 fichiers max</div>
+                        </div>
+                        <div class="file-list" id="fileList"></div>
+                    </div>
+                    <button type="submit" class="btn btn-r btn-sub" id="submitBtn">Envoyer la demande</button>
                 </form>
+                <div class="form-loading" id="formLoading">
+                    <div class="spinner"></div>
+                    <p style="color:var(--t2);">Envoi en cours...</p>
+                </div>
                 <div class="form-ok" id="formOk">
                     <div class="chk">✓</div>
                     <h3>Demande envoyée !</h3>
@@ -705,23 +761,144 @@ const obs = new IntersectionObserver((entries) => {
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
 // Form
-document.getElementById('devisForm').addEventListener('submit', function(e) {
+// ══════════════════════════════════════════════════
+// EMAILJS CONFIG — À REMPLIR AVEC TON COMPTE
+// Crée un compte gratuit sur https://www.emailjs.com
+// ══════════════════════════════════════════════════
+const EMAILJS_PUBLIC_KEY = 'TON_PUBLIC_KEY';   // Dashboard > Account > Public Key
+const EMAILJS_SERVICE_ID = 'TON_SERVICE_ID';   // Dashboard > Email Services > Service ID
+const EMAILJS_TEMPLATE_ID = 'TON_TEMPLATE_ID'; // Dashboard > Email Templates > Template ID
+// ══════════════════════════════════════════════════
+
+emailjs.init(EMAILJS_PUBLIC_KEY);
+
+// File upload handling
+let uploadedFiles = [];
+const fileInput = document.getElementById('fileInput');
+const fileZone = document.getElementById('fileZone');
+const fileList = document.getElementById('fileList');
+
+fileZone.addEventListener('dragover', (e) => { e.preventDefault(); fileZone.classList.add('dragover'); });
+fileZone.addEventListener('dragleave', () => { fileZone.classList.remove('dragover'); });
+fileZone.addEventListener('drop', (e) => {
+    e.preventDefault(); fileZone.classList.remove('dragover');
+    handleFiles(e.dataTransfer.files);
+});
+fileInput.addEventListener('change', (e) => { handleFiles(e.target.files); });
+
+function handleFiles(files) {
+    for (let f of files) {
+        if (uploadedFiles.length >= 5) break;
+        if (f.size > 5 * 1024 * 1024) { alert('Fichier trop volumineux (max 5 Mo) : ' + f.name); continue; }
+        uploadedFiles.push(f);
+    }
+    renderFileList();
+}
+
+function removeFile(index) {
+    uploadedFiles.splice(index, 1);
+    renderFileList();
+}
+
+function renderFileList() {
+    fileList.innerHTML = '';
+    uploadedFiles.forEach((f, i) => {
+        const item = document.createElement('div');
+        item.className = 'file-item';
+        const isImg = f.type.startsWith('image/');
+        if (isImg) {
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(f);
+            item.appendChild(img);
+        }
+        const name = document.createElement('span');
+        name.textContent = f.name.length > 20 ? f.name.substring(0, 17) + '...' : f.name;
+        item.appendChild(name);
+        const btn = document.createElement('button');
+        btn.className = 'file-remove';
+        btn.textContent = '✕';
+        btn.onclick = () => removeFile(i);
+        item.appendChild(btn);
+        fileList.appendChild(item);
+    });
+}
+
+// Form submit
+document.getElementById('devisForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const d = Object.fromEntries(new FormData(this));
-    const subj = encodeURIComponent('Demande de devis — ' + d.marque + ' ' + d.modele);
-    const body = encodeURIComponent(
-        'Nouvelle demande de devis ADC MECA\n\n' +
-        'Client : ' + d.prenom + ' ' + d.nom + '\n' +
-        'Email : ' + d.email + '\n' +
-        'Tél : ' + d.tel + '\n\n' +
-        'Véhicule : ' + d.marque + ' ' + d.modele + ' — Plaque : ' + d.plaque + '\n' +
-        'Prestation : ' + d.prestation + '\n\n' +
-        'Description :\n' + d.message
-    );
-    window.location.href = 'mailto:contact@adcmeca.fr?subject=' + subj + '&body=' + body;
-    this.style.display = 'none';
-    document.getElementById('formOk').classList.add('show');
+    const form = this;
+    const loading = document.getElementById('formLoading');
+    const submitBtn = document.getElementById('submitBtn');
+
+    // If EmailJS not configured, fallback to mailto
+    if (EMAILJS_PUBLIC_KEY === 'TON_PUBLIC_KEY') {
+        const subj = encodeURIComponent('Demande de devis — ' + d.marque + ' ' + d.modele);
+        const body = encodeURIComponent(
+            'Nouvelle demande de devis ADC MECA\n\n' +
+            'Client : ' + d.prenom + ' ' + d.nom + '\n' +
+            'Email : ' + d.email + '\n' +
+            'Tél : ' + d.tel + '\n\n' +
+            'Véhicule : ' + d.marque + ' ' + d.modele + ' — Plaque : ' + d.plaque + '\n' +
+            'Prestation : ' + d.prestation + '\n\n' +
+            'Description :\n' + d.message
+        );
+        window.location.href = 'mailto:contact@adcmeca.fr?subject=' + subj + '&body=' + body;
+        form.style.display = 'none';
+        document.getElementById('formOk').classList.add('show');
+        return;
+    }
+
+    // EmailJS send
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Envoi en cours...';
+    form.style.display = 'none';
+    loading.classList.add('show');
+
+    try {
+        const templateParams = {
+            nom: d.nom,
+            prenom: d.prenom,
+            email: d.email,
+            tel: d.tel,
+            marque: d.marque,
+            modele: d.modele,
+            plaque: d.plaque,
+            prestation: d.prestation,
+            message: d.message
+        };
+
+        // Attach files if any (EmailJS supports attachments)
+        if (uploadedFiles.length > 0) {
+            // Convert files to base64 for EmailJS
+            for (let i = 0; i < uploadedFiles.length && i < 3; i++) {
+                const base64 = await fileToBase64(uploadedFiles[i]);
+                templateParams['attachment' + (i + 1)] = base64;
+                templateParams['filename' + (i + 1)] = uploadedFiles[i].name;
+            }
+        }
+
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+        loading.classList.remove('show');
+        document.getElementById('formOk').classList.add('show');
+    } catch (err) {
+        loading.classList.remove('show');
+        form.style.display = '';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Envoyer la demande';
+        alert('Erreur lors de l\'envoi. Veuillez réessayer ou nous contacter par téléphone.');
+        console.error('EmailJS Error:', err);
+    }
 });
+
+function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+    });
+}
 
 // Lightbox
 function openLB(img) { document.getElementById('lbImg').src = img.src; document.getElementById('lb').classList.add('show'); }
