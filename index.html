@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 
-<html lang="fr" data-theme="dark">
+<html lang="fr" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#0b0b0b">
+    <meta name="theme-color" content="#ffffff">
     <title>ADC MECA — Garage Automobile à Biganos</title>
     <meta name="description" content="ADC MECA — Arthur Del Campo. Garage automobile à Biganos. Mécanique, diagnostic, entretien. Devis gratuit.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,9 +43,6 @@
     [data-theme="light"] footer { background: #f4f4f5; }
     [data-theme="light"] header { background: rgba(255,255,255,0.92); border-bottom: 1px solid #d4d4d8; }
     [data-theme="light"] .logo-text { color: #111; }
-    [data-theme="light"] .burger span { background: #111; }
-    [data-theme="light"] .mobile-menu { background: #fff; border-left: 1px solid #d4d4d8; }
-    [data-theme="light"] .mobile-menu a { color: #111; border-bottom-color: #e4e4e7; }
     [data-theme="light"] .srv { background: #fff; border-color: #d4d4d8; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
     [data-theme="light"] .srv:hover { background: #fafafa; }
     [data-theme="light"] .srv h3 { color: #111; }
@@ -56,7 +53,7 @@
     }
     [data-theme="light"] .fg input::placeholder, [data-theme="light"] .fg textarea::placeholder { color: #aaa; }
     [data-theme="light"] .fg input:focus, [data-theme="light"] .fg select:focus, [data-theme="light"] .fg textarea:focus {
-        border-color: #e63946; background: #fff;
+        border-color: #e67e22; background: #fff;
     }
     [data-theme="light"] .contact-card { background: #fff; border-color: #d4d4d8; }
     [data-theme="light"] .contact-card h3 { color: #111; }
@@ -72,14 +69,13 @@
     [data-theme="light"] .pres-photo { border-color: #d4d4d8; }
     [data-theme="light"] .map-box { border-color: #d4d4d8; }
     [data-theme="light"] .theme-toggle { background: #f4f4f5; border-color: #d4d4d8; }
-    [data-theme="light"] .burger { background: #f4f4f5; border-color: #d4d4d8; }
     [data-theme="light"] .nav-links a { color: #4a4a4a; }
     [data-theme="light"] .desk-nav a { color: #4a4a4a; }
-    [data-theme="light"] .desk-nav a:hover { color: #e63946; }
+    [data-theme="light"] .desk-nav a:hover { color: #e67e22; }
     [data-theme="light"] .ft-inner p, [data-theme="light"] .ft-inner a { color: #888; }
     [data-theme="light"] .hero-logo-bg { opacity: 0.04; }
 
-    --red: #e63946;
+    --red: #e67e22;
 
     html { scroll-behavior: smooth; }
 
@@ -90,7 +86,7 @@
         transition: background 0.4s, color 0.4s;
     }
 
-    .accent { color: #e63946; }
+    .accent { color: #e67e22; }
 
     /* ── NAV ── */
     header {
@@ -116,7 +112,7 @@
         cursor: pointer; display: flex; align-items: center; justify-content: center;
         transition: all 0.3s; position: relative; flex-shrink: 0;
     }
-    .theme-toggle:hover { border-color: #e63946; }
+    .theme-toggle:hover { border-color: #e67e22; }
     .theme-toggle .sun, .theme-toggle .moon { font-size: 1.1rem; line-height: 1; }
     /* Dark mode: show moon, hide sun */
     [data-theme="dark"] .theme-toggle .moon { display: inline; }
@@ -128,16 +124,18 @@
     /* Burger */
     .burger {
         display: none; width: 40px; height: 40px; border-radius: 8px;
-        border: 1px solid var(--bdr2); background: var(--bg3);
+        border: 2px solid #888; background: transparent;
         cursor: pointer; flex-direction: column; align-items: center;
         justify-content: center; gap: 5px; flex-shrink: 0;
         transition: border-color 0.3s;
     }
     .burger span {
-        display: block; width: 20px; height: 2px; background: var(--t1);
+        display: block; width: 20px; height: 2px; background: #ccc;
         border-radius: 2px; transition: all 0.3s;
     }
-    .burger.active { border-color: #e63946; }
+    .burger.active { border-color: #e67e22; }
+    [data-theme="light"] .burger { border-color: #999; }
+    [data-theme="light"] .burger span { background: #333; }
     .burger.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
     .burger.active span:nth-child(2) { opacity: 0; }
     .burger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
@@ -149,12 +147,12 @@
         font-weight: 500; letter-spacing: 1px; text-transform: uppercase;
         transition: color 0.3s;
     }
-    .desk-nav a:hover { color: #e63946; }
+    .desk-nav a:hover { color: #e67e22; }
     .desk-nav .cta-link {
-        background: #e63946; color: #fff !important; padding: 0.5rem 1.2rem;
+        background: #e67e22; color: #fff !important; padding: 0.5rem 1.2rem;
         border-radius: 6px; font-weight: 600;
     }
-    .desk-nav .cta-link:hover { background: #c1121f; }
+    .desk-nav .cta-link:hover { background: #cf6d17; }
 
     /* Mobile menu */
     .mobile-menu {
@@ -171,7 +169,11 @@
         letter-spacing: 2px; padding: 0.8rem 0; border-bottom: 1px solid var(--bdr);
         transition: color 0.3s;
     }
-    .mobile-menu a:hover { color: #e63946; }
+    .mobile-menu a:hover { color: #e67e22; }
+    [data-theme="dark"] .mobile-menu { background: #151515; border-left-color: #333; }
+    [data-theme="dark"] .mobile-menu a { color: #f0f0f0; border-bottom-color: #333; }
+    [data-theme="light"] .mobile-menu { background: #fff; border-left-color: #d4d4d8; }
+    [data-theme="light"] .mobile-menu a { color: #111; border-bottom-color: #e4e4e7; }
     .mobile-overlay {
         display: none; position: fixed; inset: 0; z-index: 998;
         background: rgba(0,0,0,0.5);
@@ -187,8 +189,8 @@
     .hero-bg {
         position: absolute; inset: 0;
         background:
-            radial-gradient(ellipse at 30% 50%, rgba(230,57,70,0.08) 0%, transparent 60%),
-            radial-gradient(ellipse at 70% 30%, rgba(230,57,70,0.04) 0%, transparent 50%);
+            radial-gradient(ellipse at 30% 50%, rgba(230,126,34,0.08) 0%, transparent 60%),
+            radial-gradient(ellipse at 70% 30%, rgba(230,126,34,0.04) 0%, transparent 50%);
     }
     .hero-logo-bg {
         position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -224,8 +226,8 @@
         letter-spacing: 1px; text-transform: uppercase; cursor: pointer;
         transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;
     }
-    .btn-r { background: #e63946; color: #fff; }
-    .btn-r:hover { background: #c1121f; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(230,57,70,0.25); }
+    .btn-r { background: #e67e22; color: #fff; }
+    .btn-r:hover { background: #cf6d17; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(230,126,34,0.25); }
     .btn-o { background: transparent; color: var(--t1); border: 1px solid var(--bdr2); }
     .btn-o:hover { border-color: var(--t2); transform: translateY(-2px); }
 
@@ -233,7 +235,7 @@
     section { padding: 5rem 1.5rem; background: var(--bg); transition: background 0.4s; }
     .sec-alt { background: var(--bg2); }
     .container { max-width: 1100px; margin: 0 auto; }
-    .s-label { font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; color: #e63946; margin-bottom: 0.8rem; display: block; }
+    .s-label { font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; color: #e67e22; margin-bottom: 0.8rem; display: block; }
     .s-title { font-family: 'Oswald', sans-serif; font-size: clamp(2rem,4.5vw,3.2rem); letter-spacing: 2px; margin-bottom: 1rem; }
     .s-desc { color: var(--t2); max-width: 520px; font-weight: 300; margin-bottom: 2.5rem; }
     .s-head { text-align: center; margin-bottom: 3.5rem; }
@@ -260,7 +262,7 @@
         aspect-ratio: 4/3; background: var(--bg3); cursor: pointer;
         transition: transform 0.4s, border-color 0.3s;
     }
-    .photo-strip-item:hover { transform: scale(1.03); border-color: #e63946; }
+    .photo-strip-item:hover { transform: scale(1.03); border-color: #e67e22; }
     .photo-strip-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
     /* Stats */
@@ -270,7 +272,7 @@
         border-radius: 10px; border: 1px solid var(--bdr);
         box-shadow: var(--card-shadow); transition: background 0.4s, border-color 0.4s;
     }
-    .stat-num { font-family: 'Oswald', sans-serif; font-size: 2rem; color: #e63946; }
+    .stat-num { font-family: 'Oswald', sans-serif; font-size: 2rem; color: #e67e22; }
     .stat-lbl { font-size: 0.72rem; color: var(--t2); text-transform: uppercase; letter-spacing: 1px; margin-top: 0.2rem; }
 
     /* ── SERVICES (in Présentation) ── */
@@ -282,7 +284,7 @@
     }
     .srv::after {
         content: ''; position: absolute; top: 0; left: 0; right: 0;
-        height: 3px; background: #e63946; transform: scaleX(0); transition: transform 0.3s;
+        height: 3px; background: #e67e22; transform: scaleX(0); transition: transform 0.3s;
         transform-origin: left;
     }
     .srv:hover { transform: translateY(-3px); border-color: var(--bdr2); }
@@ -310,7 +312,7 @@
         -webkit-appearance: none; appearance: none;
     }
     .fg input::placeholder, .fg textarea::placeholder { color: var(--t3); }
-    .fg input:focus, .fg select:focus, .fg textarea:focus { border-color: #e63946; box-shadow: 0 0 0 3px rgba(230,57,70,0.12); }
+    .fg input:focus, .fg select:focus, .fg textarea:focus { border-color: #e67e22; box-shadow: 0 0 0 3px rgba(230,126,34,0.12); }
     .fg textarea { resize: vertical; min-height: 100px; }
     .fg select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 12 12'%3E%3Cpath fill='%23999' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; }
     .fg select option { background: var(--bg); color: var(--t1); }
@@ -324,7 +326,7 @@
         margin-bottom: 1rem; position: relative;
     }
     .file-zone:hover, .file-zone.dragover {
-        border-color: #e63946; background: rgba(230,57,70,0.05);
+        border-color: #e67e22; background: rgba(230,126,34,0.05);
     }
     .file-zone input[type="file"] {
         position: absolute; inset: 0; opacity: 0; cursor: pointer;
@@ -332,7 +334,7 @@
     }
     .file-zone-icon { font-size: 2rem; margin-bottom: 0.5rem; }
     .file-zone-text { color: var(--t2); font-size: 0.85rem; font-weight: 300; }
-    .file-zone-text strong { color: #e63946; font-weight: 600; }
+    .file-zone-text strong { color: #e67e22; font-weight: 600; }
     .file-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
     .file-item {
         display: flex; align-items: center; gap: 0.5rem;
@@ -344,15 +346,15 @@
         width: 32px; height: 32px; object-fit: cover; border-radius: 4px;
     }
     .file-remove {
-        background: none; border: none; color: #e63946; cursor: pointer;
+        background: none; border: none; color: #e67e22; cursor: pointer;
         font-size: 1.1rem; padding: 0 0.2rem; line-height: 1;
     }
-    .file-remove:hover { color: #c1121f; }
+    .file-remove:hover { color: #cf6d17; }
     .form-loading { display: none; text-align: center; padding: 2rem; }
     .form-loading.show { display: block; }
     .spinner {
         width: 40px; height: 40px; border: 3px solid var(--bdr);
-        border-top-color: #e63946; border-radius: 50%;
+        border-top-color: #e67e22; border-radius: 50%;
         animation: spin 0.8s linear infinite; margin: 0 auto 1rem;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -368,11 +370,43 @@
     .map-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-bottom: 1.5rem; }
     .mc { display: flex; align-items: center; gap: 0.8rem; background: var(--bg3); border: 1px solid var(--bdr); border-radius: 10px; padding: 1rem 1.2rem; text-align: left; box-shadow: var(--card-shadow); transition: background 0.4s; }
     .mc-ico { font-size: 1.3rem; flex-shrink: 0; }
-    .mc strong { display: block; font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase; color: #e63946; margin-bottom: 0.15rem; }
+    .mc strong { display: block; font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase; color: #e67e22; margin-bottom: 0.15rem; }
     .mc span, .mc a { font-size: 0.85rem; color: var(--t2); text-decoration: none; }
     .map-box { width: 100%; height: 400px; border-radius: 12px; overflow: hidden; border: 1px solid var(--bdr); }
     .map-box iframe { display: block; width: 100%; height: 100%; border: none; }
     .map-link { display: inline-flex; margin-top: 1.2rem; }
+
+    /* ── AVIS CLIENTS ── */
+    .avis-header-row {
+        display: flex; align-items: center; justify-content: center; gap: 1.5rem;
+        margin-bottom: 2.5rem; flex-wrap: wrap;
+    }
+    .avis-score { text-align: center; }
+    .avis-score .big-note { font-family: 'Oswald', sans-serif; font-size: 3.5rem; color: #e67e22; line-height: 1; }
+    .avis-score .out-of { font-size: 0.85rem; color: var(--t2); }
+    .avis-stars { display: flex; gap: 0.2rem; margin: 0.3rem 0; }
+    .avis-stars .star { color: #e67e22; font-size: 1.4rem; }
+    .avis-stars .star.empty { color: var(--t3); }
+    .avis-count { font-size: 0.85rem; color: var(--t2); }
+    .avis-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin-bottom: 2.5rem; }
+    .avis-card {
+        background: var(--bg3); border: 1px solid var(--bdr); border-radius: 12px;
+        padding: 1.8rem; box-shadow: var(--card-shadow); transition: all 0.3s;
+    }
+    .avis-card:hover { transform: translateY(-3px); border-color: #e67e22; }
+    .avis-card-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; }
+    .avis-avatar {
+        width: 40px; height: 40px; border-radius: 50%; background: #e67e22;
+        display: flex; align-items: center; justify-content: center;
+        font-weight: 700; color: #fff; font-size: 1rem; flex-shrink: 0;
+    }
+    .avis-name { font-weight: 600; font-size: 0.9rem; }
+    .avis-date { font-size: 0.75rem; color: var(--t3); }
+    .avis-card-stars { display: flex; gap: 0.15rem; margin-bottom: 0.8rem; }
+    .avis-card-stars .star { color: #e67e22; font-size: 1rem; }
+    .avis-card p { color: var(--t2); font-size: 0.88rem; font-weight: 300; line-height: 1.7; font-style: italic; }
+    .avis-cta { text-align: center; }
+    .google-icon { display: inline-block; vertical-align: middle; margin-right: 0.4rem; }
 
     /* ── CONTACT ── */
     .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 1.2rem; }
@@ -381,18 +415,18 @@
         padding: 2rem; text-align: center; box-shadow: var(--card-shadow);
         transition: all 0.3s;
     }
-    .contact-card:hover { transform: translateY(-3px); border-color: #e63946; }
+    .contact-card:hover { transform: translateY(-3px); border-color: #e67e22; }
     .contact-card .ico { font-size: 2rem; margin-bottom: 0.8rem; }
     .contact-card h3 { font-family: 'Oswald', sans-serif; font-size: 1.1rem; letter-spacing: 1.5px; margin-bottom: 0.4rem; }
     .contact-card p, .contact-card a { color: var(--t2); font-size: 0.9rem; text-decoration: none; font-weight: 300; }
-    .contact-card a:hover { color: #e63946; }
+    .contact-card a:hover { color: #e67e22; }
 
     /* ── FOOTER ── */
     footer { background: var(--bg2); border-top: 1px solid var(--bdr); padding: 3rem 1.5rem 1.5rem; transition: background 0.4s; }
     .ft-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
     .ft-inner p { color: var(--t3); font-size: 0.78rem; }
     .ft-inner a { color: var(--t3); text-decoration: none; font-size: 0.78rem; }
-    .ft-inner a:hover { color: #e63946; }
+    .ft-inner a:hover { color: #e67e22; }
 
     /* ── LIGHTBOX ── */
     .lb { display: none; position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.9); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); align-items: center; justify-content: center; cursor: zoom-out; }
@@ -435,6 +469,7 @@
     <ul class="desk-nav">
         <li><a href="#presentation">Présentation</a></li>
         <li><a href="#devis">Devis</a></li>
+        <li><a href="#avis">Avis</a></li>
         <li><a href="#contact">Contact</a></li>
         <li><a href="#nous-trouver">Nous trouver</a></li>
     </ul>
@@ -455,6 +490,7 @@
 <nav class="mobile-menu" id="mobileMenu">
     <a href="#presentation" onclick="closeMenu()">Présentation</a>
     <a href="#devis" onclick="closeMenu()">Devis</a>
+    <a href="#avis" onclick="closeMenu()">Avis</a>
     <a href="#contact" onclick="closeMenu()">Contact</a>
     <a href="#nous-trouver" onclick="closeMenu()">Nous trouver</a>
 </nav>
@@ -486,9 +522,9 @@
             <div class="pres-text">
                 <span class="s-label">Présentation</span>
                 <h2 class="s-title">Arthur Del Campo</h2>
-                <p>Passionné d'automobile depuis toujours, Arthur a fondé ADC MECA à Biganos, au cœur du Bassin d'Arcachon. Son atelier vous accueille pour tous vos besoins en mécanique.</p>
-                <p>Fort de son expérience en compétition automobile, il met un point d'honneur à fournir un travail soigné, des diagnostics transparents et des tarifs justes.</p>
-                <p><strong style="color:var(--t1);">Votre confiance est son moteur.</strong></p>
+                <p>Passionné d'automobile depuis toujours, j'ai fondé ADC MECA à Biganos, au cœur du Bassin d'Arcachon. Mon atelier vous accueille pour tous vos besoins en mécanique, de l'entretien courant aux réparations les plus complexes.</p>
+                <p>Fort de mon expérience en compétition automobile, je mets un point d'honneur à fournir un travail soigné, des diagnostics transparents et des tarifs justes.</p>
+                <p><strong style="color:var(--t1);">Votre confiance est mon moteur.</strong></p>
             </div>
         </div>
 
@@ -544,10 +580,7 @@
             <div class="devis-side reveal">
                 <h3>Parlons de votre véhicule</h3>
                 <p>Décrivez votre besoin et nous établirons un devis détaillé, gratuit et sans engagement.</p>
-                <div class="ci"><div class="ci-ico">📍</div><span>6 Allée du Papyrus, 33380 Biganos</span></div>
-                <div class="ci"><div class="ci-ico">📞</div><a href="tel:0675791169">06 75 79 11 69</a></div>
-                <div class="ci"><div class="ci-ico">✉️</div><span>contact@adcmeca.fr</span></div>
-                <div class="ci"><div class="ci-ico">🕐</div><span>Lun–Ven : 8h30–18h30</span></div>
+                <div class="ci"><div class="ci-ico">✉️</div><a href="mailto:contact@adcmeca.fr">contact@adcmeca.fr</a></div>
             </div>
             <div class="form-card reveal">
                 <form id="devisForm">
@@ -564,7 +597,7 @@
                         <div class="fg"><label>Modèle</label><input type="text" name="modele" placeholder="Ex: Clio"></div>
                     </div>
                     <div class="fr">
-                        <div class="fg"><label>Plaque d'immatriculation</label><input type="text" name="plaque" placeholder="Ex: AB-123-CD"></div>
+                        <div class="fg"><label>Plaque d'immatriculation *</label><input type="text" name="plaque" required placeholder="Ex: AB-123-CD"></div>
                         <div class="fg"><label>Prestation</label>
                             <select name="prestation">
                                 <option value="">— Sélectionner —</option>
@@ -603,6 +636,73 @@
     </div>
 </section>
 
+<!-- ═══ AVIS CLIENTS ═══ -->
+
+<section id="avis" class="sec-alt">
+    <div class="container">
+        <div class="s-head reveal">
+            <span class="s-label">Avis clients</span>
+            <h2 class="s-title">Ce qu'ils pensent de nous</h2>
+        </div>
+
+```
+    <div class="avis-header-row reveal">
+        <div class="avis-score">
+            <div class="big-note">5.0</div>
+            <div class="avis-stars">
+                <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+            </div>
+            <div class="out-of">sur 5</div>
+        </div>
+        <div>
+            <div class="avis-count">Basé sur les avis Google</div>
+            <a href="https://search.google.com/local/writereview?placeid=ChIJ4XfeYYeZVA4RxCMLlji64e8" target="_blank" class="btn btn-r" style="margin-top:0.8rem; font-size:0.75rem; padding:0.6rem 1.2rem;">
+                <span class="google-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="#fff" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#fff" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#fff" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#fff" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg></span>
+                Laisser un avis
+            </a>
+        </div>
+    </div>
+
+    <div class="avis-grid reveal">
+        <!-- AVIS 1 — Remplace par de vrais avis -->
+        <div class="avis-card">
+            <div class="avis-card-header">
+                <div class="avis-avatar">M</div>
+                <div><div class="avis-name">Marie L.</div><div class="avis-date">Il y a 2 semaines</div></div>
+            </div>
+            <div class="avis-card-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+            <p>« Super garage ! Arthur est très professionnel, le diagnostic était rapide et précis. Tarifs très corrects, je recommande vivement. »</p>
+        </div>
+        <!-- AVIS 2 -->
+        <div class="avis-card">
+            <div class="avis-card-header">
+                <div class="avis-avatar">P</div>
+                <div><div class="avis-name">Pierre D.</div><div class="avis-date">Il y a 1 mois</div></div>
+            </div>
+            <div class="avis-card-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+            <p>« Travail soigné et honnête. Il a pris le temps de m'expliquer les réparations nécessaires. Je reviendrai sans hésiter. »</p>
+        </div>
+        <!-- AVIS 3 -->
+        <div class="avis-card">
+            <div class="avis-card-header">
+                <div class="avis-avatar">S</div>
+                <div><div class="avis-name">Sophie B.</div><div class="avis-date">Il y a 1 mois</div></div>
+            </div>
+            <div class="avis-card-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+            <p>« Réactif, compétent et très sympa. Mon véhicule a été réparé en un temps record. Merci Arthur ! »</p>
+        </div>
+    </div>
+
+    <div class="avis-cta reveal">
+        <a href="https://search.google.com/local/writereview?placeid=ChIJ4XfeYYeZVA4RxCMLlji64e8" target="_blank" class="btn btn-o">
+            Voir tous les avis Google →
+        </a>
+    </div>
+</div>
+```
+
+</section>
+
 <!-- ═══ CONTACT ═══ -->
 
 <section id="contact" class="sec-alt">
@@ -621,11 +721,6 @@
                 <div class="ico">📞</div>
                 <h3>Téléphone</h3>
                 <a href="tel:0675791169">06 75 79 11 69</a>
-            </div>
-            <div class="contact-card">
-                <div class="ico">🕐</div>
-                <h3>Horaires</h3>
-                <p>Lun–Ven : 8h30–18h30<br>Sam–Dim : Fermé</p>
             </div>
             <div class="contact-card">
                 <div class="ico">✉️</div>
@@ -651,10 +746,9 @@
             <p class="s-desc">Au cœur du Bassin d'Arcachon, à Biganos.</p>
         </div>
         <div class="map-wrap reveal">
-            <div class="map-cards">
+            <div class="map-cards" style="grid-template-columns: repeat(2,1fr);">
                 <div class="mc"><span class="mc-ico">📍</span><div><strong>Adresse</strong><span>6 All. du Papyrus, 33380 Biganos</span></div></div>
-                <div class="mc"><span class="mc-ico">🕐</span><div><strong>Horaires</strong><span>Lun–Ven : 8h30–18h30</span></div></div>
-                <div class="mc"><span class="mc-ico">📞</span><div><strong>Téléphone</strong><a href="tel:0675791169" style="color:#e63946;">06 75 79 11 69</a></div></div>
+                <div class="mc"><span class="mc-ico">🕐</span><div><strong>Horaires</strong><span>Lun–Ven : 8h30–12h30 / 13h30–18h30</span></div></div>
             </div>
             <div class="map-box">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2835.5!2d-0.9753!3d44.6383!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd54998761de77e1%3A0xefce8238f60b23c4!2s6%20All.%20du%20Papyrus%2C%2033380%20Biganos!5e0!3m2!1sfr!2sfr!4v1700000000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -708,6 +802,16 @@ function applyTheme(theme) {
     if (moonEl) moonEl.style.display = theme === 'dark' ? 'inline' : 'none';
     if (sunEl) sunEl.style.display = theme === 'light' ? 'inline' : 'none';
     
+    const menu = document.getElementById('mobileMenu');
+    if (menu) {
+        menu.style.background = theme === 'dark' ? '#151515' : '#fff';
+        menu.style.borderLeftColor = theme === 'dark' ? '#333' : '#d4d4d8';
+        menu.querySelectorAll('a').forEach(a => {
+            a.style.color = theme === 'dark' ? '#f0f0f0' : '#111';
+            a.style.borderBottomColor = theme === 'dark' ? '#333' : '#e4e4e7';
+        });
+    }
+    
     if (theme === 'light') {
         b.style.background = '#ffffff';
         b.style.color = '#111';
@@ -730,7 +834,7 @@ function applyTheme(theme) {
 }
 // Restore saved theme
 (function(){
-    const saved = localStorage.getItem('theme') || 'dark';
+    const saved = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', saved);
     document.querySelector('meta[name="theme-color"]').content = saved === 'dark' ? '#0b0b0b' : '#ffffff';
     if (document.readyState === 'loading') {
